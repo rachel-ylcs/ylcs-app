@@ -1,0 +1,6 @@
+{
+    "npm.exclude": [
+        "**/harmony/**"
+    ],
+    "todo-tree.general.rootFolder": "${workspaceFolder}/src",
+}
