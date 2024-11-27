@@ -3,6 +3,8 @@ import DiscoveryPage from './pages/Discovery';
 import MusicPage from './pages/Music';
 import WorldPage from './pages/World';
 import MePage from './pages/Me';
+import WeiboDetailPage from './pages/WeiboDetail';
+import TopicDetailPage from './pages/TopicDetail';
 import GalleryPage from './pages/Gallery';
 import SettingsPage from './pages/Settings';
 import PreviewPage from './pages/Preview';
@@ -60,6 +62,16 @@ export const navs = [
 ];
 
 export const routes = [
+    {
+        name: 'WeiboDetail',
+        option: { title: '微博详情' },
+        component: WeiboDetailPage,
+    },
+    {
+        name: 'TopicDetail',
+        option: { title: '话题详情' },
+        component: TopicDetailPage,
+    },
     {
         name: 'Gallery',
         option: { title: '美图' },

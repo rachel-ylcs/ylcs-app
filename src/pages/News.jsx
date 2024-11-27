@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-import { StyleSheet, View, TouchableWithoutFeedback, useWindowDimensions } from 'react-native';
+import { View, TouchableWithoutFeedback, useWindowDimensions } from 'react-native';
+import { useStyles } from 'react-native-unistyles';
 import { TabView } from 'react-native-tab-view';
 import { FlashList } from '@shopify/flash-list';
 import Toast from 'react-native-simple-toast';
@@ -12,17 +13,9 @@ import WeiboCard from '../components/WeiboCard';
 import { useWeiboStore, useChaohuaStore } from '../store/News';
 import EditIcon from '../assets/images/edit.svg';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    headerAction: {
-        marginRight: 24,
-    },
-});
-
 function Tab({ navigation, tab }) {
     const { width } = useWindowDimensions();
+    const { theme } = useStyles();
     const { data, refreshing, loading, error, refresh, loadMore } =
         // eslint-disable-next-line react-hooks/rules-of-hooks
         tab === 'weibo' ? useWeiboStore(useShallow((state) => ({
@@ -71,7 +64,7 @@ function Tab({ navigation, tab }) {
     }, [tab]);
 
     return (
-        <View style={styles.container}>
+        <View style={theme.components.Container}>
             <FlashList
                 ref={list}
                 onScroll={({ nativeEvent }) => {
@@ -89,6 +82,7 @@ function Tab({ navigation, tab }) {
                 onEndReachedThreshold={0.25}
                 onEndReached={data !== null ? loadMore : undefined}
                 ListFooterComponent={data !== null && loading && <LoadMoreItem />}
+                overScrollMode="never"
                 showsVerticalScrollIndicator={false} />
             {!data && (
                 !error ? (
@@ -103,6 +97,7 @@ function Tab({ navigation, tab }) {
 
 export default function NewsPage({ navigation }) {
     const { width } = useWindowDimensions();
+    const { theme } = useStyles();
     const tarBar = useRef(null);
     const [index, setIndex] = useState(0);
     const routes = [
@@ -117,7 +112,8 @@ export default function NewsPage({ navigation }) {
             },
             headerRight: () => (
                 <TouchableWithoutFeedback onPress={() => Toast.show('点击了编辑微博关注按钮')}>
-                    <EditIcon style={styles.headerAction} width={24} height={24} fill="dimgray" />
+                    <EditIcon style={{ marginRight: theme.sizes.xxxl }}
+                        width={theme.sizes.xxxl} height={theme.sizes.xxxl} fill={theme.colors.icon} />
                 </TouchableWithoutFeedback>
             ),
         });

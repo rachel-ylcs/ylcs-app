@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { StyleSheet, View, Text, TouchableWithoutFeedback, useWindowDimensions } from 'react-native';
+import { useStyles } from 'react-native-unistyles';
 import { TabView, TabBar } from 'react-native-tab-view';
 import { TabBarItemLabel } from 'react-native-tab-view/src/TabBarItemLabel';
 import { MasonryFlashList } from '@shopify/flash-list';
@@ -16,9 +17,6 @@ import SearchIcon from '../assets/images/search.svg';
 import AddIcon from '../assets/images/add.svg';
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
     header: {
         width: '100%',
         flexDirection: 'row',
@@ -75,15 +73,17 @@ const styles = StyleSheet.create({
 });
 
 function Tab({ navigation, tab }) {
+    const { width } = useWindowDimensions();
+    const { theme } = useStyles();
+
     if (!(tab in useTopicStores)) {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ fontSize: 18 }}>{tab}</Text>
+            <View style={theme.components.Container}>
+                <Text style={{ fontSize: theme.sizes.xl }}>{tab}</Text>
             </View>
         );
     }
 
-    const { width } = useWindowDimensions();
     const { data, refreshing, loading, error, refresh, loadMore } =
         useTopicStores[tab](useShallow((state) => ({
             data: state.data,
@@ -123,7 +123,7 @@ function Tab({ navigation, tab }) {
     }, [tab]);
 
     return (
-        <View style={styles.container}>
+        <View style={theme.components.Container}>
             <MasonryFlashList
                 ref={list}
                 onScroll={({ nativeEvent }) => {
@@ -142,6 +142,7 @@ function Tab({ navigation, tab }) {
                 onEndReachedThreshold={0.25}
                 onEndReached={data !== null ? loadMore : undefined}
                 ListFooterComponent={data !== null && loading && <LoadMoreItem />}
+                overScrollMode="never"
                 showsVerticalScrollIndicator={false} />
             {!data && (
                 !error ? (

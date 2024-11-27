@@ -1,12 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableHighlight } from 'react-native';
+import { useStyles } from 'react-native-unistyles';
 import RightArrowIcon from '../assets/images/right_arrow.svg';
 import GalleryIcon from '../assets/images/gallery.svg';
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
     section: {
         marginTop: 10,
     },
@@ -27,8 +25,10 @@ const styles = StyleSheet.create({
 });
 
 export default function WorldPage({ navigation }) {
+    const { theme } = useStyles();
+
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={theme.components.Container} overScrollMode="never">
             <View style={styles.section}>
                 <TouchableHighlight onPress={() => {
                     navigation.navigate('Gallery');

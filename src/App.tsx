@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, StatusBar } from 'react-native';
+import { useStyles } from 'react-native-unistyles';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,10 +13,12 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function NavBar(): JSX.Element {
+    const { theme } = useStyles();
+
     return (
         <Tab.Navigator screenOptions={{
-            tabBarActiveTintColor: 'purple',
-            tabBarInactiveTintColor: 'steelblue',
+            tabBarActiveTintColor: theme.colors.accent,
+            tabBarInactiveTintColor: theme.colors.primary,
         }}>
             {navs.map((item) => (
                 <Tab.Screen key={item.name} name={item.name} options={{

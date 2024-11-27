@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { StyleSheet, View, useWindowDimensions, BackHandler } from 'react-native';
+import { View, useWindowDimensions, BackHandler } from 'react-native';
+import { useStyles } from 'react-native-unistyles';
 import { useFocusEffect } from '@react-navigation/native';
 import { MasonryFlashList } from '@shopify/flash-list';
 import Breadcrumb from '../components/Breadcrumb';
@@ -8,17 +9,9 @@ import OfflineIndicator from '../components/OfflineIndicator';
 import AlbumCard from '../components/AlbumCard';
 import { useGalleryStore } from '../store/Gallery';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    breadcrumb: {
-        width: '100%',
-    },
-});
-
 export default function GalleryPage({ navigation }) {
     const { width } = useWindowDimensions();
+    const { theme } = useStyles();
     const { data, refreshing, error, refresh } = useGalleryStore();
     const [path, setPath] = useState(['相册']);
 
@@ -46,8 +39,8 @@ export default function GalleryPage({ navigation }) {
     }, [data, path]);
 
     return (
-        <View style={styles.container}>
-            <Breadcrumb style={styles.breadcrumb} path={path} setPath={setPath} />
+        <View style={theme.components.Container}>
+            <Breadcrumb path={path} setPath={setPath} />
             <MasonryFlashList
                 numColumns={2}
                 estimatedItemSize={200}
@@ -75,6 +68,7 @@ export default function GalleryPage({ navigation }) {
                 keyExtractor={(item, index) => Array.isArray(item) ? item[0] : item.index}
                 onRefresh={data !== null ? refresh : undefined}
                 refreshing={refreshing}
+                overScrollMode="never"
                 showsVerticalScrollIndicator={false} />
             {!data && (
                 !error ? (

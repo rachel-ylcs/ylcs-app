@@ -1,19 +1,14 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { useStyles } from 'react-native-unistyles';
 import { WebView } from 'react-native-webview';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-});
-
 export default function WebBrowserPage({ navigation, route }) {
+    const { theme } = useStyles();
     const { url } = route.params;
 
     return (
         <WebView
-            style={styles.container}
+            style={theme.components.Container}
             originWhitelist={['*']}
             source={{ uri: url }}
             onShouldStartLoadWithRequest={(e) => {

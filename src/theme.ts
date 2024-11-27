@@ -7,6 +7,15 @@ const lightTheme = {
         accent: 'purple',
         text: 'black',
         secondaryText: 'gray',
+
+        icon: 'dimgray',
+        border: 'gray',
+
+        success: 'green',
+        failed: 'red',
+        info: 'black',
+        warn: 'orange',
+        error: 'red',
     },
     sizes: {
         xs: 10,
@@ -18,8 +27,27 @@ const lightTheme = {
         xxxl: 24,
     },
     components: {
+        Container: {
+            flex: 1,
+            // backgroundColor: '#f6f6f6',
+        },
+        CenterContainer: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            // backgroundColor: '#f6f6f6',
+        },
+        Section: {
+            flex: 1,
+            padding: 10,
+            backgroundColor: 'white',
+        },
         Card: {
-
+            flex: 1,
+            padding: 10,
+            margin: 5,
+            backgroundColor: 'white',
+            borderRadius: 10,
         },
     },
 };
