@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import Html from './Html';
 import NineGridImage from './NineGridImage';
-import { formatDate } from '../utils/util';
+import { formatDateTime } from '../utils/util';
 import TopicLikeIcon from '../assets/images/topic_like.svg';
 import TopicCommentIcon from '../assets/images/topic_comment.svg';
 import TopicRepostIcon from '../assets/images/topic_repost.svg';
@@ -83,7 +83,7 @@ export default function WeiboCard({ content, cardWidth }) {
                     <View style={styles.cardHeaderLayout1}>
                         <Text style={styles.cardTitle}>{content.user.name}</Text>
                         <View style={styles.cardHeaderLayout2}>
-                            <Text style={styles.cardSubtitle}>{formatDate(content.time)}</Text>
+                            <Text style={styles.cardSubtitle}>{formatDateTime(content.time)}</Text>
                             <Text style={styles.cardSubtitle}>{content.user.location}</Text>
                         </View>
                     </View>

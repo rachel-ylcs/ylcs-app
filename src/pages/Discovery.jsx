@@ -78,7 +78,7 @@ function Tab({ navigation, tab }) {
 
     if (!(tab in useTopicStores)) {
         return (
-            <View style={theme.components.Container}>
+            <View style={theme.components.CenterContainer}>
                 <Text style={{ fontSize: theme.sizes.xl }}>{tab}</Text>
             </View>
         );
@@ -189,11 +189,6 @@ export default function GalleryPage({ navigation }) {
                         </PopupMenu>
                     </View>
                 );
-            },
-            headerStyle: {
-                borderBottomWidth: 0,
-                shadowOpacity: 0,
-                elevation: 0,
             },
         });
     }, [navigation, tabProps, menuVisible]);

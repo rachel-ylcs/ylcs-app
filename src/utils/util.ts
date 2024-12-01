@@ -19,14 +19,35 @@ export function parseAsctimeDate(dateStr: string): Date | null {
 }
 
 /**
- * yyyy-MM-dd HH:mm:ss
+ * yyyy-MM-dd
  */
 export function formatDate(date: Date) {
     let year = date.getFullYear();
     let month = String(date.getMonth() + 1).padStart(2, '0');
     let day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+/**
+ * HH:mm:ss
+ */
+export function formatTime(date: Date) {
     let hours = String(date.getHours()).padStart(2, '0');
     let minutes = String(date.getMinutes()).padStart(2, '0');
     let seconds = String(date.getSeconds()).padStart(2, '0');
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return `${hours}:${minutes}:${seconds}`;
 }
+
+/**
+ * yyyy-MM-dd HH:mm:ss
+ */
+export function formatDateTime(date: Date) {
+    return `${formatDate(date)} ${formatTime(date)}`;
+}
+
+export const Links = {
+    qq: (uid: string) => `mqqapi://card/show_pslcard?src_type=internal&version=1&uin=${uid}&card_type=person&source=qrcode`,
+    qqGroup: (gid: string) => `mqqapi://card/show_pslcard?src_type=internal&version=1&uin=${gid}&card_type=group&source=qrcode`,
+    taobao: (shopId: string) => `taobao://shop.m.taobao.com/shop/shop_index.htm?shop_id=${shopId}`,
+    showstart: (url: string) => url,
+};

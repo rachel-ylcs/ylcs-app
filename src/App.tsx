@@ -30,6 +30,7 @@ function NavBar(): JSX.Element {
                     },
                     headerTitle: item.title,
                     headerTitleAlign: 'center',
+                    headerShadowVisible: false,
                 }} component={item.component} />
             ))}
         </Tab.Navigator>

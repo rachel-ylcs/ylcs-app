@@ -11,7 +11,8 @@
     "test": "jest",
     "ohos:dev": "react-native bundle-harmony --dev",
     "ohos:release": "react-native bundle-harmony --dev false",
-    "web": "react-native bundle --platform web --dev false --entry-file index.js --bundle-output public/index.bundle.js --assets-dest public/static --config metro.config.web.js"
+    "web": "react-native bundle --platform web --dev false --entry-file index.js --bundle-output public/index.bundle.js --assets-dest public/static --config metro.config.web.js",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
@@ -38,6 +39,7 @@
     "react-content-loader": "^7.0.2",
     "react-dom": "18.2.0",
     "react-native": "0.72.5",
+    "react-native-calendars": "^1.1304.1",
     "react-native-image-viewing": "~0.2.2",
     "react-native-mmkv-storage": "~0.10.3",
     "react-native-pager-view": "~6.2.3",
@@ -51,7 +53,9 @@
     "react-native-unistyles": "^2.7.2",
     "react-native-web": "^0.19.13",
     "react-native-webview": "^13.6.2",
-    "zustand": "^5.0.1"
+    "tyme4ts": "^1.1.6",
+    "zustand": "^5.0.1",
+    "zustand-di": "^0.0.16"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -68,6 +72,7 @@
     "express": "^4.21.1",
     "jest": "^29.2.1",
     "metro-react-native-babel-preset": "0.76.8",
+    "patch-package": "^8.0.0",
     "prettier": "^2.4.1",
     "react-native-svg-transformer": "^1.5.0",
     "react-test-renderer": "18.2.0",

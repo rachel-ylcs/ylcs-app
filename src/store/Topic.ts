@@ -13,8 +13,8 @@ interface TopicState {
     loadMore: () => Promise<void>;
 }
 
-function createTopicStore(type: string) {
-    return create<TopicState, [['zustand/persist', Partial<TopicState>]]>(
+const createTopicStore = (type: string) =>
+    create<TopicState, [['zustand/persist', Partial<TopicState>]]>(
         persist(
             (set, get) => ({
                 offset: 0,
@@ -78,7 +78,6 @@ function createTopicStore(type: string) {
             },
         ),
     );
-}
 
 export const useTopicStores = {
     latest: createTopicStore('latest'),

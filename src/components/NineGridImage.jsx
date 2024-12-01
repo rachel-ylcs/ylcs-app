@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import AutoSizeImage from './FastAutoSizeImage';
 
@@ -27,12 +27,12 @@ export default function NineGridImage(props) {
     } else if (data.length === 1) {
         return (
             <View style={[styles.large, props.style]}>
-                <TouchableHighlight
+                <TouchableWithoutFeedback
                     onPress={props.onItemPress ? () => props.onItemPress(data[0], 0) : undefined}>
                     <AutoSizeImage
                         length={props.width}
                         source={{ uri: data[0].url }} />
-                </TouchableHighlight>
+                </TouchableWithoutFeedback>
             </View>
         );
     } else {
@@ -51,11 +51,11 @@ export default function NineGridImage(props) {
                 {colData.map((rowData, col) => (
                     <View style={[styles.column, { gap: itemGap }]} key={col}>
                         {rowData.map((item, index) => (
-                            <TouchableHighlight
+                            <TouchableWithoutFeedback
                                 onPress={props.onItemPress ? () => props.onItemPress(item, index * numColumns + col) : undefined}
                                 key={index}>
                                 <FastImage style={styles.thumbnail} source={{ uri: item.url }} />
-                            </TouchableHighlight>
+                            </TouchableWithoutFeedback>
                         ))}
                     </View>
                 ))}

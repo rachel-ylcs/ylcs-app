@@ -297,7 +297,6 @@ export const CommonAPI = {
 
     async getPhotos(): Promise<Result<PhotoFolder>> {
         let json = await client.post(`${this._apiPrefix}/getPhotos`);
-        console.log(json);
         if (json.code === Code.SUCCESS) {
             json.data = parsePhotoFolder(json.data);
         }

@@ -7,6 +7,7 @@ import WeiboDetailPage from './pages/WeiboDetail';
 import TopicDetailPage from './pages/TopicDetail';
 import GalleryPage from './pages/Gallery';
 import SettingsPage from './pages/Settings';
+import EventDetailPage from './pages/EventDetail';
 import PreviewPage from './pages/Preview';
 import WebBrowserPage from './pages/WebBroswer';
 
@@ -81,6 +82,11 @@ export const routes = [
         name: 'Settings',
         option: { title: '设置' },
         component: SettingsPage,
+    },
+    {
+        name: 'EventDetail',
+        option: { title: '活动详情' },
+        component: EventDetailPage,
     },
     {
         name: 'Preview',

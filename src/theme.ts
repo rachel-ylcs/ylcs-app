@@ -16,6 +16,8 @@ const lightTheme = {
         info: 'black',
         warn: 'orange',
         error: 'red',
+
+        white: 'white',
     },
     sizes: {
         xs: 10,
