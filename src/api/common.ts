@@ -2,14 +2,13 @@ import Toast from 'react-native-simple-toast';
 
 let lastShowTime = 0;
 
-function showError(error: unknown) {
-    if (!__DEV__) {
-        if (Date.now() - lastShowTime > 1000) {
-            Toast.show('无法连接至服务器，请检查网络连接', Toast.SHORT);
-            lastShowTime = Date.now();
-        }
-    } else {
-        Toast.show(`请求出错: ${error}`, Toast.LONG);
+function showError(error: any) {
+    if (__DEV__) {
+        console.error(error);
+    }
+    if (Date.now() - lastShowTime > 1000) {
+        Toast.show(error.message, Toast.SHORT);
+        lastShowTime = Date.now();
     }
 }
 
@@ -65,6 +64,7 @@ export function createHttpClient<T>(baseUrl: string, options: ClientOptions<T>) 
                 if (options.beforeRequest && !options.beforeRequest?.(url, data, init)) {
                     return;
                 }
+                init.body = JSON.stringify(data);
                 let response = await fetch(`${baseUrl}${url}`, init);
                 return await options.afterResponse?.(response) as T ?? response;
             } catch (error) {

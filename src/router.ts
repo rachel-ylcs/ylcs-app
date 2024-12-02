@@ -6,7 +6,11 @@ import MePage from './pages/Me';
 import WeiboDetailPage from './pages/WeiboDetail';
 import TopicDetailPage from './pages/TopicDetail';
 import GalleryPage from './pages/Gallery';
+import ContactCardPage from './pages/ContactCard';
+import ScanCodePage from './pages/ScanCode';
 import SettingsPage from './pages/Settings';
+import LoginPage from './pages/Login';
+import ProfilePage from './pages/Profile';
 import EventDetailPage from './pages/EventDetail';
 import PreviewPage from './pages/Preview';
 import WebBrowserPage from './pages/WebBroswer';
@@ -79,9 +83,29 @@ export const routes = [
         component: GalleryPage,
     },
     {
+        name: 'ContactCard',
+        option: { title: '名片' },
+        component: ContactCardPage,
+    },
+    {
+        name: 'ScanCode',
+        option: { title: '扫码' },
+        component: ScanCodePage,
+    },
+    {
         name: 'Settings',
         option: { title: '设置' },
         component: SettingsPage,
+    },
+    {
+        name: 'Login',
+        option: { title: '登录' },
+        component: LoginPage,
+    },
+    {
+        name: 'Profile',
+        option: { title: '个人资料' },
+        component: ProfilePage,
     },
     {
         name: 'EventDetail',

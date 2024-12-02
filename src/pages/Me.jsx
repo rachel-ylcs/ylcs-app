@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useCallback } from 'react';
 import { View, Text, ScrollView, RefreshControl, TouchableWithoutFeedback, StatusBar, Linking } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
 import { useFocusEffect } from '@react-navigation/native';
@@ -7,6 +7,7 @@ import Toast from 'react-native-simple-toast';
 import EventCalendar from '../components/EventCalendar';
 import LoadingIndicator from '../components/LoadingIndicator';
 import OfflineIndicator from '../components/OfflineIndicator';
+import { useUserStore } from '../store/User';
 import { useActivitiesStore } from '../store/Activities';
 import { Links } from '../utils/util';
 import { config } from '../config';
@@ -113,13 +114,14 @@ const stylesheet = createStyleSheet((theme, runtime) => ({
 
 export default function MePage({ navigation }) {
     const { styles, theme } = useStyles(stylesheet);
+    const { data: user, refresh: refreshUser } = useUserStore();
     const { data, refreshing, error, refresh } = useActivitiesStore();
 
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
                 <View style={styles.headerActions}>
-                    <TouchableWithoutFeedback onPress={() => navigation.navigate('Profile')}>
+                    <TouchableWithoutFeedback onPress={() => navigation.navigate('ContactCard')}>
                         <ProfileIcon style={{ marginRight: theme.sizes.xl }}
                             width={theme.sizes.xxxl} height={theme.sizes.xxxl} fill={theme.colors.white} />
                     </TouchableWithoutFeedback>
@@ -140,11 +142,17 @@ export default function MePage({ navigation }) {
     }, [navigation]);
 
     useFocusEffect(
-        React.useCallback(() => {
+        useCallback(() => {
             StatusBar.setBarStyle('light-content', true);
 
             return () => StatusBar.setBarStyle('dark-content', true);
         }, [])
+    );
+
+    useFocusEffect(
+        useCallback(() => {
+            refreshUser();
+        }, [refreshUser])
     );
 
     useEffect(() => {
@@ -165,22 +173,22 @@ export default function MePage({ navigation }) {
                 <RefreshControl refreshing={refreshing} onRefresh={refresh} />
             } overScrollMode="never" showsVerticalScrollIndicator={false}>
             <View style={styles.backgroundWrapper}>
-                <FastImage style={styles.backgroundWall} />
+                <FastImage style={styles.backgroundWall} source={{ uri: user?.wall }} />
             </View>
-            <TouchableWithoutFeedback onPress={() => Toast.show('跳转至登录页')}>
+            <TouchableWithoutFeedback onPress={() => navigation.navigate(user ? 'Profile' : 'Login')}>
                 <View style={[theme.components.Card, styles.profileCard]}>
                     <View style={styles.profileLayout1}>
-                        <FastImage style={styles.avatar} />
-                        <Text style={styles.nickname}>未登录</Text>
+                        <FastImage style={styles.avatar} source={{ uri: user?.avatar }} />
+                        <Text style={styles.nickname}>{user?.name ?? '未登录，点击登录'}</Text>
                     </View>
-                    <Text style={styles.signature}>泸沽烟水里的过客…</Text>
+                    <Text style={styles.signature}>{user?.signature ?? '泸沽烟水里的过客…'}</Text>
                     <View style={styles.profileLayout2}>
                         <View style={styles.profileData}>
-                            <Text style={styles.profileDataNum}>1</Text>
+                            <Text style={styles.profileDataNum}>{String(user?.level ?? 1)}</Text>
                             <Text style={styles.profileDataLabel}>等级</Text>
                         </View>
                         <View style={styles.profileData}>
-                            <Text style={styles.profileDataNum}>0</Text>
+                            <Text style={styles.profileDataNum}>{String(user?.coin ?? 0)}</Text>
                             <Text style={styles.profileDataLabel}>银币</Text>
                         </View>
                     </View>

@@ -1,14 +1,21 @@
 import { createJSONStorage, StateStorage } from 'zustand/middleware';
 import { MMKVLoader } from 'react-native-mmkv-storage';
+import { UserInfo, User } from '../api/ylcs';
 
 export const storage = new MMKVLoader().initialize();
 export const cacheStorage = new MMKVLoader().withInstanceID('cache').initialize();
 export const encryptStorage = new MMKVLoader().withInstanceID('encrypt').withEncryption().initialize();
+// FIXME 加密的 MMKV 不好使, 暂时用不加密的代替
 
 export const stateStorage = createJSONStorage<any>(() => cacheStorage as StateStorage, {
     reviver(key, value: any) {
-        if (value && value.type === 'date') {
+        if (!value) {
+            return value;
+        }
+        if (value.type === 'date') {
             return new Date(value.value);
+        } else if (value.type === 'user') {
+            return new User(value.value);
         }
         return value;
     },
@@ -17,6 +24,18 @@ export const stateStorage = createJSONStorage<any>(() => cacheStorage as StateSt
         const value = (this as any)[key];
         if (value instanceof Date) {
             return { type: 'date', value: value.getTime() };
+        } else if (value instanceof User) {
+            let userInfo: UserInfo = {
+                uid: value.uid,
+                name: value.name,
+                inviterName: value.inviterName,
+                privilege: value.privilege,
+                signature: value.signature,
+                label: value.label,
+                coin: value.coin,
+                topics: value.topics,
+            };
+            return { type: 'user', value: userInfo };
         }
         return value;
     },

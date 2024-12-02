@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import { createHttpClient } from './common';
-import { encryptStorage } from '../store';
+import { storage as encryptStorage } from '../store';
 import { config } from '../config';
 import { name as appName, version as appVer } from '../../app.json';
 
@@ -15,8 +15,12 @@ const client = createHttpClient(config.API_BASE_URL, {
         }
         return true;
     },
-    afterResponse(response) {
-        return response.json();
+    async afterResponse(response) {
+        let json = await response.json();
+        if (json.code !== Code.SUCCESS) {
+            throw new Error(json.msg);
+        }
+        return json;
     },
     throwError: true,
 });
