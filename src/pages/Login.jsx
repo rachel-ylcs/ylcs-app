@@ -3,7 +3,7 @@ import { View, Text, Image, TextInput, TouchableHighlight } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
 import Toast from 'react-native-simple-toast';
 import { UserAPI } from '../api/ylcs';
-import { storage as encryptStorage } from '../store';
+import { encryptStorage } from '../store';
 
 const stylesheet = createStyleSheet((theme, runtime) => ({
     header: {

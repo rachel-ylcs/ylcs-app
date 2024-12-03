@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import { createHttpClient } from './common';
-import { storage as encryptStorage } from '../store';
+import { encryptStorage } from '../store';
 import { config } from '../config';
 import { name as appName, version as appVer } from '../../app.json';
 

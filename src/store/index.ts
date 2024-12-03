@@ -5,7 +5,6 @@ import { UserInfo, User } from '../api/ylcs';
 export const storage = new MMKVLoader().initialize();
 export const cacheStorage = new MMKVLoader().withInstanceID('cache').initialize();
 export const encryptStorage = new MMKVLoader().withInstanceID('encrypt').withEncryption().initialize();
-// FIXME 加密的 MMKV 不好使, 暂时用不加密的代替
 
 export const stateStorage = createJSONStorage<any>(() => cacheStorage as StateStorage, {
     reviver(key, value: any) {

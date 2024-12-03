@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { storage as encryptStorage, stateStorage } from './index';
+import { encryptStorage, stateStorage } from './index';
 import { UserAPI, User } from '../api/ylcs';
 
 interface UserState {
