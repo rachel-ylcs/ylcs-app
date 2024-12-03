@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { View, Text, Image, TextInput, TouchableHighlight } from 'react-native';
+import { View, Text, Image, TextInput, TouchableHighlight, ScrollView } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
 import Toast from 'react-native-simple-toast';
 import { UserAPI } from '../api/ylcs';
@@ -74,7 +74,7 @@ function LoginFragment({ navigation, setIndex }) {
     const login = useCallback(async () => {
         try {
             if (!username.current || !password.current) {
-                Toast.show('用户名或密码不能为空');
+                Toast.show('用户名和密码不能为空');
                 return;
             }
             let result = await UserAPI.login(username.current, password.current);
@@ -107,6 +107,13 @@ function LoginFragment({ navigation, setIndex }) {
 
 function RegisterFragment({ navigation, setIndex }) {
     const { styles, theme } = useStyles(stylesheet);
+    const inputPassword = useRef(null);
+    const inputRepeatedPassword = useRef(null);
+    const inputInviter = useRef(null);
+    const username = useRef('');
+    const password = useRef('');
+    const repeatedPassword = useRef('');
+    const inviter = useRef('');
 
     useEffect(() => {
         navigation.setOptions({
@@ -114,15 +121,60 @@ function RegisterFragment({ navigation, setIndex }) {
         });
     }, [navigation]);
 
+    const register = useCallback(async () => {
+        try {
+            if (!username.current || !password.current) {
+                Toast.show('用户名和密码不能为空');
+                return;
+            }
+            if (!inviter.current) {
+                Toast.show('请填写邀请人，可以在群内捉管理邀请你哦～');
+                return;
+            }
+            if (password.current !== repeatedPassword.current) {
+                Toast.show('两次输入的密码不一致');
+                return;
+            }
+            await UserAPI.register(username.current, password.current, inviter.current);
+            Toast.show('注册成功，请登录～');
+            setIndex(0);
+        } catch (_) {}
+    }, [setIndex]);
+
     return (
         <>
-            <Text>注册</Text>
+            <Text style={styles.inputLabel}>用户名</Text>
+            <TextInput style={styles.inputText} placeholder="请输入用户名" returnKeyType="next"
+                onChangeText={(text) => username.current = text} onSubmitEditing={(e) => inputPassword.current.focus()} />
+            <Text style={styles.inputLabel}>密码</Text>
+            <TextInput ref={inputPassword} style={styles.inputText} placeholder="请输入密码" secureTextEntry={true} returnKeyType="next"
+                onChangeText={(text) => password.current = text} onSubmitEditing={(e) => inputRepeatedPassword.current.focus()} />
+            <Text style={styles.inputLabel}>确认密码</Text>
+            <TextInput ref={inputRepeatedPassword} style={styles.inputText} placeholder="请再输入一次密码" secureTextEntry={true} returnKeyType="next"
+                onChangeText={(text) => repeatedPassword.current = text} onSubmitEditing={(e) => inputInviter.current.focus()} />
+            <Text style={styles.inputLabel}>邀请人</Text>
+            <TextInput ref={inputInviter} style={styles.inputText} placeholder="请输入邀请人名称" returnKeyType="done"
+                onChangeText={(text) => inviter.current = text} />
+            <View style={styles.linkLayout}>
+                <View style={styles.link}>
+                    <Text style={{ fontSize: theme.sizes.lg, color: theme.colors.text }}>已有账号？去</Text>
+                    <Text style={{ fontSize: theme.sizes.lg, color: theme.colors.primary }} onPress={() => setIndex(0)}>登录</Text>
+                </View>
+            </View>
+            <TouchableHighlight style={styles.button} onPress={register}>
+                <Text style={styles.buttonLabel}>注册</Text>
+            </TouchableHighlight>
         </>
     );
 }
 
 function ForgetFragment({ navigation, setIndex }) {
     const { styles, theme } = useStyles(stylesheet);
+    const inputPassword = useRef(null);
+    const inputRepeatedPassword = useRef(null);
+    const username = useRef('');
+    const password = useRef('');
+    const repeatedPassword = useRef('');
 
     useEffect(() => {
         navigation.setOptions({
@@ -130,9 +182,40 @@ function ForgetFragment({ navigation, setIndex }) {
         });
     }, [navigation]);
 
+    const forget = useCallback(async () => {
+        try {
+            if (!username.current || !password.current) {
+                Toast.show('用户名和密码不能为空');
+                return;
+            }
+            if (password.current !== repeatedPassword.current) {
+                Toast.show('两次输入的密码不一致');
+                return;
+            }
+            await UserAPI.forgetPassword(username.current, password.current);
+            Toast.show('已提交修改密码申请，快去群里找邀请人审核吧～');
+            setIndex(0);
+        } catch (_) {}
+    }, [setIndex]);
+
     return (
         <>
-            <Text>忘记密码</Text>
+            <Text style={styles.inputLabel}>用户名</Text>
+            <TextInput style={styles.inputText} placeholder="请输入用户名" returnKeyType="next"
+                onChangeText={(text) => username.current = text} onSubmitEditing={(e) => inputPassword.current.focus()} />
+            <Text style={styles.inputLabel}>新密码</Text>
+            <TextInput ref={inputPassword} style={styles.inputText} placeholder="请输入新密码" secureTextEntry={true} returnKeyType="next"
+                onChangeText={(text) => password.current = text} onSubmitEditing={(e) => inputRepeatedPassword.current.focus()} />
+            <Text style={styles.inputLabel}>确认新密码</Text>
+            <TextInput ref={inputRepeatedPassword} style={styles.inputText} placeholder="请再输入一次新密码" secureTextEntry={true} returnKeyType="done"
+                onChangeText={(text) => repeatedPassword.current = text} />
+            <View style={styles.linkLayout}>
+                <View style={styles.link} />
+                <Text style={{ fontSize: theme.sizes.lg, color: theme.colors.primary }} onPress={() => setIndex(0)}>返回登录</Text>
+            </View>
+            <TouchableHighlight style={styles.button} onPress={forget}>
+                <Text style={styles.buttonLabel}>提交申请</Text>
+            </TouchableHighlight>
         </>
     );
 }
@@ -145,13 +228,15 @@ export default function LoginPage({ navigation, route }) {
 
     return (
         <View style={[theme.components.Container, { backgroundColor: theme.colors.white }]}>
-            <View style={styles.header}>
-                <Image style={[styles.logo, styles.logoBrand]} source={require('../assets/images/logo.webp')} />
-                <Image style={[styles.logo, styles.logoTitle]} source={require('../assets/images/logo_title.webp')} />
-            </View>
-            <View style={styles.fragment}>
-                <PageFragment navigation={navigation} setIndex={setIndex} />
-            </View>
+            <ScrollView>
+                <View style={styles.header}>
+                    <Image style={[styles.logo, styles.logoBrand]} source={require('../assets/images/logo.webp')} />
+                    <Image style={[styles.logo, styles.logoTitle]} source={require('../assets/images/logo_title.webp')} />
+                </View>
+                <View style={styles.fragment}>
+                    <PageFragment navigation={navigation} setIndex={setIndex} />
+                </View>
+            </ScrollView>
         </View>
     );
 }
