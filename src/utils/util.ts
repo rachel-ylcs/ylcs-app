@@ -49,5 +49,7 @@ export const Links = {
     qq: (uid: string) => `mqqapi://card/show_pslcard?src_type=internal&version=1&uin=${uid}&card_type=person&source=qrcode`,
     qqGroup: (gid: string) => `mqqapi://card/show_pslcard?src_type=internal&version=1&uin=${gid}&card_type=group&source=qrcode`,
     taobao: (shopId: string) => `taobao://shop.m.taobao.com/shop/shop_index.htm?shop_id=${shopId}`,
-    showstart: (url: string) => url,
+    showstart: (mlink: string) => mlink,
+    damai: (id: string) => `https://m.damai.cn/shows/item.html?itemId=${id}`,
+    maoyan: (id: string) => `https://show.maoyan.com/qqw#/detail/${id}`,
 };
