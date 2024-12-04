@@ -7,6 +7,7 @@ import Toast from 'react-native-simple-toast';
 import EventCalendar from '../components/EventCalendar';
 import LoadingIndicator from '../components/LoadingIndicator';
 import OfflineIndicator from '../components/OfflineIndicator';
+import { useNeedAuth } from '../hooks/useNeedAuth';
 import { useUserStore } from '../store/User';
 import { useActivitiesStore } from '../store/Activities';
 import { LEVELS_TABLE } from '../api/ylcs';
@@ -136,9 +137,10 @@ export default function MePage({ navigation }) {
 
     useEffect(() => {
         navigation.setOptions({
+            headerTitle: '',
             headerRight: () => (
                 <View style={styles.headerActions}>
-                    <TouchableWithoutFeedback onPress={() => navigation.navigate('ContactCard')}>
+                    <TouchableWithoutFeedback onPress={useNeedAuth(() => navigation.navigate('ContactCard'))}>
                         <ProfileIcon style={{ marginRight: theme.sizes.xl }}
                             width={theme.sizes.xxxl} height={theme.sizes.xxxl} fill={theme.colors.white} />
                     </TouchableWithoutFeedback>
@@ -153,7 +155,6 @@ export default function MePage({ navigation }) {
                 </View>
             ),
             headerTransparent: true,
-            headerTitle: '',
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [navigation]);
@@ -216,13 +217,13 @@ export default function MePage({ navigation }) {
                 </View>
             </TouchableWithoutFeedback>
             <View style={[theme.components.Card, styles.functionCard]}>
-                <TouchableWithoutFeedback onPress={() => Toast.show('点击了签到按钮')}>
+                <TouchableWithoutFeedback onPress={useNeedAuth(() => Toast.show('点击了签到按钮'))}>
                     <View style={styles.functionButton}>
                         <SigninIcon width={24} height={24} fill="black" />
                         <Text style={styles.functionLabel}>签到</Text>
                     </View>
                 </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={() => Toast.show('点击了徽章按钮')}>
+                <TouchableWithoutFeedback onPress={useNeedAuth(() => Toast.show('点击了徽章按钮'))}>
                     <View style={styles.functionButton}>
                         <MedalIcon width={24} height={24} fill="black" />
                         <Text style={styles.functionLabel}>徽章</Text>
@@ -234,7 +235,7 @@ export default function MePage({ navigation }) {
                         <Text style={styles.functionLabel}>好友</Text>
                     </View>
                 </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={() => Toast.show('点击了邮箱按钮')}>
+                <TouchableWithoutFeedback onPress={useNeedAuth(() => Toast.show('点击了邮箱按钮'))}>
                     <View style={styles.functionButton}>
                         <MailIcon width={24} height={24} fill="black" />
                         <Text style={styles.functionLabel}>邮箱</Text>

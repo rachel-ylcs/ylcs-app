@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { View, useWindowDimensions, BackHandler } from 'react-native';
 import { useStyles } from 'react-native-unistyles';
 import { useFocusEffect } from '@react-navigation/native';
@@ -16,7 +16,7 @@ export default function GalleryPage({ navigation }) {
     const [path, setPath] = useState(['相册']);
 
     useFocusEffect(
-        React.useCallback(() => {
+        useCallback(() => {
             const listener = BackHandler.addEventListener('hardwareBackPress', () => {
                 if (path.length > 1) {
                     setPath(path.slice(0, -1));

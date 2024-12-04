@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StatusBar } from 'react-native';
+import { StyleSheet, Image, StatusBar } from 'react-native';
 import { useStyles } from 'react-native-unistyles';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
@@ -30,7 +30,11 @@ function NavBar(): JSX.Element {
                     },
                     headerTitle: item.title,
                     headerTitleAlign: 'center',
-                    headerShadowVisible: false,
+                    headerStyle: {
+                        borderBottomWidth: StyleSheet.hairlineWidth,
+                        shadowOpacity: 0,
+                        elevation: 0,
+                    },
                 }} component={item.component} />
             ))}
         </Tab.Navigator>

@@ -190,6 +190,7 @@ export default function GalleryPage({ navigation }) {
                     </View>
                 );
             },
+            headerShadowVisible: false,
         });
     }, [navigation, tabProps, menuVisible]);
 

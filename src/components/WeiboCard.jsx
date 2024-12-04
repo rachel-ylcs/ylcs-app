@@ -1,99 +1,62 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import FastImage from 'react-native-fast-image';
+import WeiboHeader from './WeiboHeader';
 import Html from './Html';
 import NineGridImage from './NineGridImage';
-import { formatDateTime } from '../utils/util';
 import TopicLikeIcon from '../assets/images/topic_like.svg';
 import TopicCommentIcon from '../assets/images/topic_comment.svg';
 import TopicRepostIcon from '../assets/images/topic_repost.svg';
 
 const styles = StyleSheet.create({
-    card: {
+    container: {
         flex: 1,
-        padding: 10,
-        margin: 5,
         backgroundColor: 'white',
-        borderRadius: 10,
-    },
-    cardHeader: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        padding: 10,
         marginBottom: 10,
     },
-    cardAvatar: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
+    header: {
+        marginBottom: 10,
     },
-    cardHeaderLayout1: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: 0,
-        marginLeft: 10,
-    },
-    cardHeaderLayout2: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    cardTitle: {
-        color: 'orangered',
-        fontSize: 15,
-    },
-    cardSubtitle: {
-        color: 'darkgray',
-        fontSize: 13,
-    },
-    cardImages: {
+    images: {
         marginTop: 10,
     },
-    cardFooter: {
+    footer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
         marginTop: 10,
     },
-    cardFooterItem: {
+    footerItem: {
         flexDirection: 'row',
         alignItems: 'center',
     },
-    cardFooterIcon: {
-        width: 14,
-        height: 14,
+    footerIcon: {
+        width: 16,
+        height: 16,
     },
-    cardFooterText: {
+    footerText: {
         color: 'gray',
-        fontSize: 11,
+        fontSize: 12,
         marginLeft: 8,
     },
 });
 
-export default function WeiboCard({ content, cardWidth }) {
+export default function WeiboCard({ content, preview, width }) {
     const navigation = useNavigation();
 
     return (
-        <TouchableWithoutFeedback onPress={() => {
-            navigation.navigate('WeiboDetail', { id: content.id });
-        }}>
-            <View style={styles.card}>
-                <View style={styles.cardHeader}>
-                    <FastImage style={styles.cardAvatar} source={{ uri: content.user.avatar }} />
-                    <View style={styles.cardHeaderLayout1}>
-                        <Text style={styles.cardTitle}>{content.user.name}</Text>
-                        <View style={styles.cardHeaderLayout2}>
-                            <Text style={styles.cardSubtitle}>{formatDateTime(content.time)}</Text>
-                            <Text style={styles.cardSubtitle}>{content.user.location}</Text>
-                        </View>
-                    </View>
-                </View>
+        <TouchableWithoutFeedback onPress={preview ? () => {
+            navigation.navigate('WeiboDetail', { content });
+        } : undefined}>
+            <View style={styles.container}>
+                <WeiboHeader style={styles.header} user={content.user} time={content.time} />
                 <Html
-                    contentWidth={cardWidth}
+                    contentWidth={width}
                     source={{ html: content.text }} />
                 <NineGridImage
-                    style={styles.cardImages}
-                    width={cardWidth - 30}
+                    style={styles.images}
+                    width={width - 30}
                     itemGap={3}
                     data={content.pictures}
                     onItemPress={(item, index) => {
@@ -102,18 +65,18 @@ export default function WeiboCard({ content, cardWidth }) {
                             index: index,
                         });
                     }} />
-                <View style={styles.cardFooter}>
-                    <View style={styles.cardFooterItem}>
-                        <TopicLikeIcon height={styles.cardFooterIcon.height} width={styles.cardFooterIcon.width} />
-                        <Text style={styles.cardFooterText}>{content.likeNum}</Text>
+                <View style={styles.footer}>
+                    <View style={styles.footerItem}>
+                        <TopicLikeIcon height={styles.footerIcon.height} width={styles.footerIcon.width} />
+                        <Text style={styles.footerText}>{content.likeNum}</Text>
                     </View>
-                    <View style={styles.cardFooterItem}>
-                        <TopicCommentIcon height={styles.cardFooterIcon.height} width={styles.cardFooterIcon.width} />
-                        <Text style={styles.cardFooterText}>{content.commentNum}</Text>
+                    <View style={styles.footerItem}>
+                        <TopicCommentIcon height={styles.footerIcon.height} width={styles.footerIcon.width} />
+                        <Text style={styles.footerText}>{content.commentNum}</Text>
                     </View>
-                    <View style={styles.cardFooterItem}>
-                        <TopicRepostIcon height={styles.cardFooterIcon.height} width={styles.cardFooterIcon.width} />
-                        <Text style={styles.cardFooterText}>{content.repostNum}</Text>
+                    <View style={styles.footerItem}>
+                        <TopicRepostIcon height={styles.footerIcon.height} width={styles.footerIcon.width} />
+                        <Text style={styles.footerText}>{content.repostNum}</Text>
                     </View>
                 </View>
             </View>

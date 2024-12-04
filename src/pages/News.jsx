@@ -75,7 +75,7 @@ function Tab({ navigation, tab }) {
                 }}
                 estimatedItemSize={100}
                 data={data}
-                renderItem={({item}) => <WeiboCard content={item} cardWidth={width} />}
+                renderItem={({item}) => <WeiboCard content={item} preview={true} width={width} />}
                 keyExtractor={(item, index) => `${item.user.userId}_${item.id}`}
                 onRefresh={data !== null ? refresh : undefined}
                 refreshing={refreshing}

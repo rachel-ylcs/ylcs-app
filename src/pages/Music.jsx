@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { View, Text, StatusBar } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
 import { useFocusEffect } from '@react-navigation/native';
@@ -24,7 +24,7 @@ export default function NewsPage({ navigation }) {
     }, [navigation]);
 
     useFocusEffect(
-        React.useCallback(() => {
+        useCallback(() => {
             StatusBar.setBarStyle('light-content', true);
 
             return () => StatusBar.setBarStyle('dark-content', true);

@@ -4,6 +4,7 @@ import MusicPage from './pages/Music';
 import WorldPage from './pages/World';
 import MePage from './pages/Me';
 import WeiboDetailPage from './pages/WeiboDetail';
+import WeiboUserPage from './pages/WeiboUser';
 import TopicDetailPage from './pages/TopicDetail';
 import GalleryPage from './pages/Gallery';
 import ContactCardPage from './pages/ContactCard';
@@ -71,6 +72,11 @@ export const routes = [
         name: 'WeiboDetail',
         option: { title: '微博详情' },
         component: WeiboDetailPage,
+    },
+    {
+        name: 'WeiboUser',
+        option: { title: '微博用户' },
+        component: WeiboUserPage,
     },
     {
         name: 'TopicDetail',
