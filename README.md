@@ -23,6 +23,8 @@ npm install
 # ios 平台安装依赖
 cd ios
 pod install
+# HarmonyOS 平台生成桥接代码
+npm run ohos:codegen
 ```
 
 ## 如何调试

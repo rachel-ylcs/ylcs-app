@@ -38,6 +38,7 @@ oh_modules/
 .hvigor/
 .preview/
 .appanalyzer/
+**/generated/
 **/resources/rawfile/
 .clang*
 

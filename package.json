@@ -9,6 +9,7 @@
     "start": "react-native start",
     "serve": "node server.js --config metro.config.web.js",
     "test": "jest",
+    "ohos:codegen": "react-native codegen-harmony --cpp-output-path ./harmony/entry/src/main/cpp/generated --rnoh-module-path ./harmony/entry/oh_modules/@rnoh/react-native-openharmony",
     "ohos:dev": "react-native bundle-harmony --dev",
     "ohos:release": "react-native bundle-harmony --dev false",
     "web": "react-native bundle --platform web --dev false --entry-file index.js --bundle-output public/index.bundle.js --assets-dest public/static --config metro.config.web.js",

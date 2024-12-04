@@ -24,7 +24,10 @@ add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/flash-list/src/main/cpp"
 add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/react-native-svg/src/main/cpp" ./svg)
 add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/react-native-fast-image/src/main/cpp" ./fast_image)
 
+file(GLOB GENERATED_CPP_FILES "./generated/*.cpp")
+
 add_library(rnoh_app SHARED
+    ${GENERATED_CPP_FILES}
     PackageProvider.cpp
     ${RNOH_CPP_DIR}/RNOHAppNapiBridge.cpp
 )
