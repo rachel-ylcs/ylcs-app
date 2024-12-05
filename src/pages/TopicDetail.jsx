@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableWithoutFeedback, Modal, useWindowDimensions } from 'react-native';
 import { useStyles } from 'react-native-unistyles';
 import { FlashList } from '@shopify/flash-list';
@@ -55,6 +55,7 @@ export default function TopicDetailPage({ navigation, route }) {
     const { theme } = useStyles();
     const [data, setData] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
+    const inputComment = useRef(null);
     const [comment, setComment] = useState('');
     const topicId = route.params.id;
 
@@ -89,6 +90,14 @@ export default function TopicDetailPage({ navigation, route }) {
             .catch(console.error);
     }, [data]));
 
+    useEffect(() => {
+        if (modalVisible && inputComment.current) {
+            setTimeout(() => {
+                inputComment.current.focus();
+            }, 100);
+        }
+    }, [modalVisible]);
+
     return (
         <View style={theme.components.Container}>
             {data ? (
@@ -111,9 +120,12 @@ export default function TopicDetailPage({ navigation, route }) {
                         </View>
                     </TouchableWithoutFeedback>
                     <Modal transparent={true} visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
+                        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+                            <View style={StyleSheet.absoluteFill} />
+                        </TouchableWithoutFeedback>
                         <View style={styles.commentModal}>
                             <TextInput style={styles.commentInput} multiline={true} placeholder="请输入评论内容"
-                                value={comment} onChangeText={setComment} />
+                                ref={inputComment} value={comment} onChangeText={setComment} />
                             <SendIcon style={styles.commentSend} width={30} height={30} onPress={postComment} />
                         </View>
                     </Modal>
