@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo, useCallback } from 'react';
-import { View, Text, Image, ScrollView, RefreshControl, TouchableWithoutFeedback, StatusBar, Linking } from 'react-native';
+import { View, Text, ScrollView, RefreshControl, TouchableWithoutFeedback, StatusBar, Linking } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
 import { useFocusEffect } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import Toast from 'react-native-simple-toast';
+import LevelLabel from '../components/LevelLabel';
 import EventCalendar from '../components/EventCalendar';
 import LoadingIndicator from '../components/LoadingIndicator';
 import OfflineIndicator from '../components/OfflineIndicator';
 import { useNeedAuth } from '../hooks/useNeedAuth';
 import { useUserStore } from '../store/User';
 import { useActivitiesStore } from '../store/Activities';
-import { LEVELS_TABLE } from '../api/ylcs';
 import { Links } from '../utils/util';
 import { config } from '../config';
 import ProfileIcon from '../assets/images/profile.svg';
@@ -63,22 +63,6 @@ const stylesheet = createStyleSheet((theme, runtime) => ({
         fontSize: 16,
         color: 'black',
         marginLeft: 100,
-    },
-    level: {
-        height: '100%',
-    },
-    levelBackground: {
-        height: '100%',
-        aspectRatio: 21 / 8,
-        resizeMode: 'contain',
-    },
-    levelName: {
-        position: 'absolute',
-        width: '100%',
-        bottom: '5%',
-        textAlign: 'center',
-        fontSize: 12,
-        color: 'black',
     },
     signature: {
         fontSize: 14,
@@ -198,10 +182,7 @@ export default function MePage({ navigation }) {
                     <View style={styles.profileLayout1}>
                         <FastImage style={styles.avatar} source={{ uri: user?.avatar }} />
                         <Text style={styles.nickname}>{user?.name ?? '点击登录'}</Text>
-                        <View style={styles.level}>
-                            <Image style={styles.levelBackground} source={user?.level.background ?? LEVELS_TABLE[0].background} />
-                            <Text style={styles.levelName}>{user?.level.name ?? LEVELS_TABLE[0].name}</Text>
-                        </View>
+                        <LevelLabel level={user?.level}/>
                     </View>
                     <Text style={styles.signature}>{user?.signature ?? '泸沽烟水里的过客…'}</Text>
                     <View style={styles.profileLayout2}>

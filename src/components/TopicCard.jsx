@@ -1,71 +1,56 @@
-import React from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
+import React, { useMemo } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import FastImage from 'react-native-fast-image';
-import TopicCommentIcon from '../assets/images/topic_comment.svg';
+import TopicHeader from './TopicHeader';
+import NineGridImage from './NineGridImage';
 
 const styles = StyleSheet.create({
-    card: {
+    container: {
         flex: 1,
-        margin: 3,
         backgroundColor: 'white',
-        borderRadius: 10,
-        overflow: 'hidden',
+        padding: 10,
+        marginBottom: 10,
     },
-    cardTitle: {
-        width: '100%',
-        fontSize: 14,
+    header: {
+        marginBottom: 10,
+    },
+    title: {
+        fontSize: 16,
+        fontWeight: '600',
+        lineHeight: 28,
+        textAlignVertical: 'center',
         color: 'black',
-        paddingHorizontal: 8,
-        paddingTop: 8,
     },
-    cardPoster: {
-        width: '100%',
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: 8,
-        paddingVertical: 8,
-    },
-    cardAvatar: {
-        width: 20,
-        height: 20,
-        borderRadius: 10,
-        marginRight: 8,
-    },
-    cardName: {
-        flex: 1,
-        fontSize: 12,
-        color: 'gray',
-    },
-    cardNum: {
+    content: {
         fontSize: 14,
-        color: 'gray',
-        marginLeft: 4,
+        lineHeight: 20,
+        color: 'black',
+        marginBottom: 10,
     },
 });
 
-export default function TopicCard({ content, cardWidth }) {
+export default function TopicCard({ content, width }) {
     const navigation = useNavigation();
 
-    const imageWidth = cardWidth - styles.card.margin * 2;
+    const images = useMemo(() => content.pics?.map((pic) => ({
+        url: content.picUrl(pic),
+    })), [content]);
 
     return (
-        <TouchableWithoutFeedback onPress={() => {
-            navigation.navigate('TopicDetail', { id: content.tid });
-        }}>
-            <View style={styles.card}>
-                {content.pic && <FastImage
-                    style={{ width: imageWidth, height: imageWidth / 3 * 4 }}
-                    source={{ uri: content.picUrl }}
-                    defaultSource={require('../assets/images/placeholder_loading.webp')} />}
-                <Text style={styles.cardTitle}>{content.title}</Text>
-                <View style={styles.cardPoster}>
-                    <FastImage style={styles.cardAvatar} source={{ uri: content.avatar }} />
-                    <Text style={styles.cardName}>{content.name}</Text>
-                    <TopicCommentIcon height={16} width={16} />
-                    <Text style={styles.cardNum}>{content.commentNum}</Text>
-                </View>
-            </View>
-        </TouchableWithoutFeedback>
+        <View style={styles.container}>
+            <TopicHeader style={styles.header} content={content} onMorePress={(e) => {}} />
+            <Text style={styles.title}>{content.title}</Text>
+            <Text style={styles.content}>{content.content}</Text>
+            <NineGridImage
+                width={width - 20}
+                itemGap={3}
+                data={images}
+                onItemPress={(item, index) => {
+                    navigation.navigate('Preview', {
+                        images: images,
+                        index: index,
+                    });
+                }} />
+        </View>
     );
 }

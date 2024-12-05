@@ -6,12 +6,14 @@ import MePage from './pages/Me';
 import WeiboDetailPage from './pages/WeiboDetail';
 import WeiboUserPage from './pages/WeiboUser';
 import TopicDetailPage from './pages/TopicDetail';
+import UserPage from './pages/User';
+import PostTopicPage from './pages/PostTopic';
 import GalleryPage from './pages/Gallery';
 import ContactCardPage from './pages/ContactCard';
 import ScanCodePage from './pages/ScanCode';
 import SettingsPage from './pages/Settings';
 import LoginPage from './pages/Login';
-import ProfilePage from './pages/Profile';
+import EditProfilePage from './pages/EditProfile';
 import EventDetailPage from './pages/EventDetail';
 import PreviewPage from './pages/Preview';
 import WebBrowserPage from './pages/WebBroswer';
@@ -70,7 +72,7 @@ export const navs = [
 export const routes = [
     {
         name: 'WeiboDetail',
-        option: { title: '微博详情' },
+        option: { title: '微博正文' },
         component: WeiboDetailPage,
     },
     {
@@ -80,8 +82,18 @@ export const routes = [
     },
     {
         name: 'TopicDetail',
-        option: { title: '话题详情' },
+        option: { title: '帖子正文' },
         component: TopicDetailPage,
+    },
+    {
+        name: 'User',
+        option: { title: '用户' },
+        component: UserPage,
+    },
+    {
+        name: 'PostTopic',
+        option: { title: '发图文' },
+        component: PostTopicPage,
     },
     {
         name: 'Gallery',
@@ -109,9 +121,9 @@ export const routes = [
         component: LoginPage,
     },
     {
-        name: 'Profile',
-        option: { title: '个人资料' },
-        component: ProfilePage,
+        name: 'EditProfile',
+        option: { title: '编辑资料卡' },
+        component: EditProfilePage,
     },
     {
         name: 'EventDetail',

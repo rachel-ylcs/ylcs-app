@@ -56,7 +56,7 @@ export default function WeiboCard({ content, preview, width }) {
                     source={{ html: content.text }} />
                 <NineGridImage
                     style={styles.images}
-                    width={width - 30}
+                    width={width - 20}
                     itemGap={3}
                     data={content.pictures}
                     onItemPress={(item, index) => {

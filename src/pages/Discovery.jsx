@@ -11,7 +11,7 @@ import PopupMenu from '../components/PopupMenu';
 import LoadingIndicator from '../components/LoadingIndicator';
 import OfflineIndicator from '../components/OfflineIndicator';
 import LoadMoreItem from '../components/LoadMoreItem';
-import TopicCard from '../components/TopicCard';
+import TopicPreviewCard from '../components/TopicPreviewCard';
 import { useTopicStores } from '../store/Topic';
 import SearchIcon from '../assets/images/search.svg';
 import AddIcon from '../assets/images/add.svg';
@@ -135,7 +135,7 @@ function Tab({ navigation, tab }) {
                 numColumns={2}
                 estimatedItemSize={200}
                 data={data}
-                renderItem={({ item }) => <TopicCard content={item} cardWidth={width / 2} />}
+                renderItem={({ item }) => <TopicPreviewCard content={item} width={width / 2} />}
                 keyExtractor={(item, index) => item.tid}
                 onRefresh={data !== null ? refresh : undefined}
                 refreshing={refreshing}
@@ -183,8 +183,11 @@ export default function GalleryPage({ navigation }) {
                                 <AddIcon width={24} height={24} fill="dimgray" />
                             </TouchableWithoutFeedback>
                         )} visible={menuVisible} onClose={() => setMenuVisible(false)}>
-                            <PopupMenu.Item text="发表图文" onPress={() => Toast.show('发布图文功能正在开发中')} />
-                            <PopupMenu.Item text="上传视频" onPress={() => Toast.show('上传视频功能正在开发中')} />
+                            <PopupMenu.Item text="发图文" onPress={() => {
+                                setMenuVisible(false);
+                                navigation.navigate('PostTopic');
+                            }} />
+                            <PopupMenu.Item text="发视频" onPress={() => Toast.show('上传视频功能正在开发中')} />
                             <PopupMenu.Item text="直播" onPress={() => Toast.show('直播功能正在开发中')} />
                         </PopupMenu>
                     </View>
