@@ -8,6 +8,6 @@
     "@ohos/hamock": "1.0.0"
   },
   "overrides": {
-    "@rnoh/react-native-openharmony" : "^0.72.38"
+    "@rnoh/react-native-openharmony" : "^0.72.44"
   }
 }

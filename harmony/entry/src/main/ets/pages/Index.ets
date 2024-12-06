@@ -12,9 +12,11 @@ import {
 } from '@rnoh/react-native-openharmony';
 import { createRNPackages } from '../RNPackagesFactory';
 import { WebView, WEB_VIEW } from '@react-native-oh-tpl/react-native-webview';
+import { RTNCameraKitView } from "@react-native-oh-tpl/react-native-camera-kit";
 
 const arkTsComponentNames: Array<string> = [
-    WEB_VIEW
+    WEB_VIEW,
+    RTNCameraKitView.NAME
 ];
 
 @Builder
@@ -23,6 +25,11 @@ export function buildCustomRNComponent(ctx: ComponentBuilderContext) {
         WebView({
             ctx: ctx.rnComponentContext,
             tag: ctx.tag
+        });
+    } else if (ctx.componentName === RTNCameraKitView.NAME) {
+        RTNCameraKitView({
+            ctx: ctx.rnComponentContext,
+            tag: ctx.tag,
         });
     }
 }

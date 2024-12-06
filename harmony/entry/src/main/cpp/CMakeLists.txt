@@ -15,14 +15,18 @@ add_compile_definitions(WITH_HITRACE_SYSTRACE)
 set(WITH_HITRACE_SYSTRACE 1) # for other CMakeLists.txt files to use
 
 add_subdirectory("${RNOH_CPP_DIR}" ./rn)
+add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/react-native-permissions/src/main/cpp" ./permissions)
+add_subdirectory("${OH_MODULE_DIR}/@react-native-ohos/react-native-fs/src/main/cpp" ./fs)
 add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/react-native-mmkv-storage/src/main/cpp" ./mmkv_storage)
 add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/react-native-unistyles/src/main/cpp" ./unistyles)
+add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/react-native-gesture-handler/src/main/cpp" ./gesture_handler)
 add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/react-native-reanimated/src/main/cpp" ./reanimated)
 add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/react-native-safe-area-context/src/main/cpp" ./safe_area)
 add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/react-native-pager-view/src/main/cpp" ./pager_view)
 add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/flash-list/src/main/cpp" ./flash_list)
 add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/react-native-svg/src/main/cpp" ./svg)
 add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/react-native-fast-image/src/main/cpp" ./fast_image)
+add_subdirectory("${OH_MODULE_DIR}/@react-native-oh-tpl/react-native-image-picker/src/main/cpp" ./image_picker)
 
 file(GLOB GENERATED_CPP_FILES "./generated/*.cpp")
 
@@ -34,12 +38,16 @@ add_library(rnoh_app SHARED
 
 target_link_libraries(rnoh_app PUBLIC
     rnoh
+    rnoh_permissions
+    rnoh_fs
     rnoh_mmkv_storage
     rnoh_unistyles
+    rnoh_gesture_handler
     rnoh_reanimated
     rnoh_safe_area
     rnoh_pager_view
     rnoh_flash_list
     rnoh_svg
     rnoh_fast_image
+    rnoh_image_picker
 )

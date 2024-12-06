@@ -6,16 +6,21 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "@rnoh/react-native-openharmony": "^0.72.38",
+    "@rnoh/react-native-openharmony": "^0.72.44",
+    "@react-native-oh-tpl/react-native-permissions": "file:../../node_modules/@react-native-oh-tpl/react-native-permissions/harmony/permissions.har",
+    "@react-native-ohos/react-native-fs": "file:../../node_modules/@react-native-ohos/react-native-fs/harmony/fs.har",
     "@react-native-oh-tpl/react-native-mmkv-storage": "file:../../node_modules/@react-native-oh-tpl/react-native-mmkv-storage/harmony/mmkv_storage.har",
     "@react-native-oh-tpl/react-native-unistyles": "file:../../node_modules/@react-native-oh-tpl/react-native-unistyles/harmony/unistyles.har",
+    "@react-native-oh-tpl/react-native-gesture-handler": "file:../../node_modules/@react-native-oh-tpl/react-native-gesture-handler/harmony/gesture_handler.har",
     "@react-native-oh-tpl/react-native-reanimated": "file:../../node_modules/@react-native-oh-tpl/react-native-reanimated/harmony/reanimated.har",
     "@react-native-oh-tpl/react-native-safe-area-context": "file:../../node_modules/@react-native-oh-tpl/react-native-safe-area-context/harmony/safe_area.har",
     "@react-native-oh-tpl/react-native-pager-view": "file:../../node_modules/@react-native-oh-tpl/react-native-pager-view/harmony/pager_view.har",
     "@react-native-oh-tpl/flash-list": "file:../../node_modules/@react-native-oh-tpl/flash-list/harmony/flash_list.har",
     "@react-native-oh-tpl/react-native-svg": "file:../../node_modules/@react-native-oh-tpl/react-native-svg/harmony/svg.har",
     "@react-native-oh-tpl/react-native-fast-image": "file:../../node_modules/@react-native-oh-tpl/react-native-fast-image/harmony/fast_image.har",
-    "@react-native-oh-tpl/react-native-webview": "file:../../node_modules/@react-native-oh-tpl/react-native-webview/harmony/rn_webview.har"
+    "@react-native-oh-tpl/react-native-webview": "file:../../node_modules/@react-native-oh-tpl/react-native-webview/harmony/rn_webview.har",
+    "@react-native-oh-tpl/react-native-camera-kit": "file:../../node_modules/@react-native-oh-tpl/react-native-camera-kit/harmony/camera_kit.har",
+    "@react-native-oh-tpl/react-native-image-picker": "file:../../node_modules/@react-native-oh-tpl/react-native-image-picker/harmony/image_picker.har"
   },
   "devDependencies": {},
   "dynamicDependencies": {}
