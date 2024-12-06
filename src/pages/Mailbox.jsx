@@ -7,7 +7,7 @@ export default function ProfilePage({ navigation, route }) {
 
     return (
         <View style={theme.components.CenterContainer}>
-            <Text>用户信息</Text>
+            <Text>邮箱</Text>
         </View>
     );
 }

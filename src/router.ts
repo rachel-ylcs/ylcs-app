@@ -9,11 +9,10 @@ import TopicDetailPage from './pages/TopicDetail';
 import UserPage from './pages/User';
 import PostTopicPage from './pages/PostTopic';
 import GalleryPage from './pages/Gallery';
-import ContactCardPage from './pages/ContactCard';
 import ScanCodePage from './pages/ScanCode';
 import SettingsPage from './pages/Settings';
 import LoginPage from './pages/Login';
-import EditProfilePage from './pages/EditProfile';
+import MailboxPage from './pages/Mailbox';
 import EventDetailPage from './pages/EventDetail';
 import PreviewPage from './pages/Preview';
 import WebBrowserPage from './pages/WebBroswer';
@@ -101,11 +100,6 @@ export const routes = [
         component: GalleryPage,
     },
     {
-        name: 'ContactCard',
-        option: { title: '名片' },
-        component: ContactCardPage,
-    },
-    {
         name: 'ScanCode',
         option: { title: '扫码' },
         component: ScanCodePage,
@@ -121,9 +115,9 @@ export const routes = [
         component: LoginPage,
     },
     {
-        name: 'EditProfile',
-        option: { title: '编辑资料卡' },
-        component: EditProfilePage,
+        name: 'Mailbox',
+        option: { title: '邮箱' },
+        component: MailboxPage,
     },
     {
         name: 'EventDetail',

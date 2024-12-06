@@ -15,6 +15,10 @@ export default function GalleryPage({ navigation }) {
     const { data, refreshing, error, refresh } = useGalleryStore();
     const [path, setPath] = useState(['相册']);
 
+    const folder = useMemo(() => {
+        return path.slice(1).reduce((data, name, index) => data?.folders?.[name], data);
+    }, [data, path]);
+
     useFocusEffect(
         useCallback(() => {
             const listener = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -33,10 +37,6 @@ export default function GalleryPage({ navigation }) {
         refresh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    const folder = useMemo(() => {
-        return path.slice(1).reduce((data, name, index) => data?.folders?.[name], data);
-    }, [data, path]);
 
     return (
         <View style={theme.components.Container}>

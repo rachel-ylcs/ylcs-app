@@ -65,12 +65,6 @@ function LoginFragment({ navigation, setIndex }) {
     const username = useRef('');
     const password = useRef('');
 
-    useEffect(() => {
-        navigation.setOptions({
-            headerTitle: '登录',
-        });
-    }, [navigation]);
-
     const login = useCallback(async () => {
         try {
             if (!username.current || !password.current) {
@@ -79,8 +73,15 @@ function LoginFragment({ navigation, setIndex }) {
             }
             let result = await UserAPI.login(username.current, password.current);
             await encryptStorage.setStringAsync('token', result.data.token);
+            await encryptStorage.setIntAsync('tokenTime', Date.now());
             navigation.goBack();
         } catch (_) {}
+    }, [navigation]);
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerTitle: '登录',
+        });
     }, [navigation]);
 
     return (

@@ -65,10 +65,6 @@ export default function TopicDetailPage({ navigation, route }) {
             .catch(console.error);
     }, [topicId]);
 
-    useEffect(() => {
-        requestData();
-    }, [requestData]);
-
     const postComment = useNeedAuth(() => {
         if (comment.trim() === '') {
             Toast.show('评论内容不能为空');
@@ -81,13 +77,13 @@ export default function TopicDetailPage({ navigation, route }) {
                 setModalVisible(false);
                 requestData();
             })
-            .catch(console.error);
+            .catch((e) => {});
     }, [topicId]);
 
     const giveCoin = useNeedAuth(useCallback((coinNum) => {
         UserAPI.giveCoin(data.uid, data.tid, coinNum)
             .then((value) => Toast.show('投币成功'))
-            .catch(console.error);
+            .catch((e) => {});
     }, [data]));
 
     useEffect(() => {
@@ -97,6 +93,10 @@ export default function TopicDetailPage({ navigation, route }) {
             }, 100);
         }
     }, [modalVisible]);
+
+    useEffect(() => {
+        requestData();
+    }, [requestData]);
 
     return (
         <View style={theme.components.Container}>

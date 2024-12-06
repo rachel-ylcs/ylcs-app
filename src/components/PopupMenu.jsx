@@ -40,11 +40,6 @@ export default function PopupMenu({ children, anchor, visible, onClose }) {
         });
     }
 
-    const onMenuLayout = (e) => {
-        const { width, height } = e.nativeEvent.layout;
-        setMenuSize({ width, height });
-    };
-
     const menuPosition = {
         top: anchorSize.top + anchorSize.height,
         left: anchorSize.left + anchorSize.width / 2 - menuSize.width / 2,
@@ -72,7 +67,10 @@ export default function PopupMenu({ children, anchor, visible, onClose }) {
             <Modal visible={visible} onRequestClose={onClose} animationType="fade" transparent>
                 <TouchableWithoutFeedback onPress={onClose} accessible={false}>
                     <View style={styles.mask}>
-                        <View style={[styles.menu, menuPosition]} onLayout={onMenuLayout}>
+                        <View style={[styles.menu, menuPosition]} onLayout={(e) => {
+                            const { width, height } = e.nativeEvent.layout;
+                            setMenuSize({ width, height });
+                        }}>
                             {children}
                         </View>
                     </View>

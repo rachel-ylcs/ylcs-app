@@ -30,17 +30,6 @@ function EventDetailPage({ navigation, route }) {
     const { width } = useWindowDimensions();
     const { data, error, refresh } = useActivityStore((state) => state);
 
-    useEffect(() => {
-        refresh(route.params.ts);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        if (data?.title) {
-            navigation.setOptions({ title: data.title });
-        }
-    }, [navigation, data?.title]);
-
     const links = useMemo(() => {
         const links = [];
         if (data?.showstart) {
@@ -73,6 +62,17 @@ function EventDetailPage({ navigation, route }) {
     const images = useMemo(() => data?.pics?.map((pic) => ({
         url: data.picUrl(pic),
     })), [data]);
+
+    useEffect(() => {
+        refresh(route.params.ts);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        if (data?.title) {
+            navigation.setOptions({ title: data.title });
+        }
+    }, [navigation, data?.title]);
 
     return (
         <View style={styles.container}>

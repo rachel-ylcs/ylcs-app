@@ -2,9 +2,11 @@ import React from 'react';
 import { StyleSheet, Image, StatusBar } from 'react-native';
 import { useStyles } from 'react-native-unistyles';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { navs, routes } from './router';
 import './store'; // init MMKV
 import './theme'; // init themes
@@ -44,16 +46,20 @@ function NavBar(): JSX.Element {
 function App(): JSX.Element {
     return (
         <SafeAreaProvider>
-            <NavigationContainer>
-                {/* HACK 让android端默认打开app就是全面屏, android端还得加个splash */}
-                <StatusBar animated={true} barStyle="dark-content" backgroundColor="transparent" translucent={true} />
-                <Stack.Navigator>
-                    <Stack.Screen name="Home" options={{ headerShown: false }} component={NavBar} />
-                    {routes.map((item) => (
-                        <Stack.Screen key={item.name} name={item.name} options={item.option} getId={item.getId} component={item.component} />
-                    ))}
-                </Stack.Navigator>
-            </NavigationContainer>
+            <GestureHandlerRootView style={StyleSheet.absoluteFill}>
+                <BottomSheetModalProvider>
+                    <NavigationContainer>
+                        {/* HACK 让android端默认打开app就是全面屏, android端还得加个splash */}
+                        <StatusBar animated={true} barStyle="dark-content" backgroundColor="transparent" translucent={true} />
+                        <Stack.Navigator>
+                            <Stack.Screen name="Home" options={{ headerShown: false }} component={NavBar} />
+                            {routes.map((item) => (
+                                <Stack.Screen key={item.name} name={item.name} options={item.option} getId={item.getId} component={item.component} />
+                            ))}
+                        </Stack.Navigator>
+                    </NavigationContainer>
+                </BottomSheetModalProvider>
+            </GestureHandlerRootView>
         </SafeAreaProvider>
     );
 }
