@@ -1,0 +1,196 @@
+diff --git a/node_modules/react-native-qr-decode-image-camera/android/build.gradle b/node_modules/react-native-qr-decode-image-camera/android/build.gradle
+index ef823e9..597d46e 100644
+--- a/node_modules/react-native-qr-decode-image-camera/android/build.gradle
++++ b/node_modules/react-native-qr-decode-image-camera/android/build.gradle
+@@ -56,6 +56,6 @@ repositories {
+ 
+ dependencies {
+     implementation 'com.facebook.react:react-native:+'
+-    implementation 'com.google.zxing:core:3.4.0'
+-    implementation 'com.google.mlkit:barcode-scanning:16.2.0'
++    // implementation 'com.google.zxing:core:3.4.0'
++    implementation 'com.google.mlkit:barcode-scanning:17.2.0'
+ }
+diff --git a/node_modules/react-native-qr-decode-image-camera/android/src/main/java/com/lewin/qrcode/QRScanReader.java b/node_modules/react-native-qr-decode-image-camera/android/src/main/java/com/lewin/qrcode/QRScanReader.java
+index e1ae7e8..ec45b58 100644
+--- a/node_modules/react-native-qr-decode-image-camera/android/src/main/java/com/lewin/qrcode/QRScanReader.java
++++ b/node_modules/react-native-qr-decode-image-camera/android/src/main/java/com/lewin/qrcode/QRScanReader.java
+@@ -12,10 +12,10 @@ import com.facebook.react.bridge.ReactMethod;
+ import com.google.android.gms.tasks.OnFailureListener;
+ import com.google.android.gms.tasks.OnSuccessListener;
+ import com.google.android.gms.tasks.Task;
+-import com.google.mlkit.vision.barcode.Barcode;
+ import com.google.mlkit.vision.barcode.BarcodeScanner;
+ import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
+ import com.google.mlkit.vision.barcode.BarcodeScanning;
++import com.google.mlkit.vision.barcode.common.Barcode;
+ import com.google.mlkit.vision.common.InputImage;
+ 
+ import java.io.IOException;
+@@ -46,7 +46,6 @@ public class QRScanReader extends ReactContextBaseJavaModule  {
+             InputImage image = InputImage.fromFilePath(this.getReactApplicationContext(), uri);
+             BarcodeScannerOptions options = new BarcodeScannerOptions.Builder()
+                     .setBarcodeFormats(
+-                            Barcode.FORMAT_AZTEC,
+                             Barcode.FORMAT_QR_CODE
+                     )
+                     .build();
+@@ -62,7 +61,7 @@ public class QRScanReader extends ReactContextBaseJavaModule  {
+                                 rawValues.add(rawValue);
+                             }
+                             scanner.close();
+-                            if (!rawValues.isEmpty()){
++                            if (!rawValues.isEmpty()) {
+                                 promise.resolve(rawValues.get(0));
+                             } else {
+                                 promise.reject("NOT_OK", "Invalid or No related QR code");
+@@ -73,7 +72,7 @@ public class QRScanReader extends ReactContextBaseJavaModule  {
+                     .addOnFailureListener(new OnFailureListener() {
+                         @Override
+                         public void onFailure(@NonNull Exception e) {
+-                            Log.d("NOT_OK", "" +  e.getMessage());
++                            Log.d("NOT_OK", "" + e.getMessage());
+                             scanner.close();
+                             promise.reject("NOT_OK", e.getMessage());
+ 
+diff --git a/node_modules/react-native-qr-decode-image-camera/src/Camera.jsx b/node_modules/react-native-qr-decode-image-camera/src/Camera.jsx
+new file mode 100644
+index 0000000..17d9607
+--- /dev/null
++++ b/node_modules/react-native-qr-decode-image-camera/src/Camera.jsx
+@@ -0,0 +1,53 @@
++import React from 'react';
++import { Camera, useCameraDevice, useCameraPermission } from 'react-native-vision-camera';
++
++export const RNCamera = (props) => {
++  const CODE_TYPES = [
++    'code-128',
++    'code-39',
++    'code-93',
++    'codabar',
++    'ean-13',
++    'ean-8',
++    'itf',
++    'upc-e',
++    'upc-a',
++    'qr',
++    'pdf-417',
++    'aztec',
++    'data-matrix'
++  ]
++  const device = useCameraDevice(props.type);
++  const { hasPermission, requestPermission } = useCameraPermission();
++
++  if (!hasPermission) {
++    requestPermission();
++  }
++
++  const codeScanner = {
++      codeTypes: CODE_TYPES,
++      onCodeScanned: (codes) => {
++        // console.log(`Scanned ${codes.length} codes:`, codes)
++        const value = codes[0]
++        if (value) {
++          props.onBarCodeRead(value)
++        } else {
++          if (value == null) return
++        }
++      }
++  }
++
++  return (
++    <>
++      {hasPermission && <Camera
++        style={props.style}
++        device={device}
++        isActive={props.isActive}
++        preview={true}
++        torch={props.flashMode ? "on" : "off"}
++        codeScanner={codeScanner}
++      />}
++      {props.children}
++    </>
++  )
++}
+diff --git a/node_modules/react-native-qr-decode-image-camera/src/QRScanner.js b/node_modules/react-native-qr-decode-image-camera/src/QRScanner.js
+index 93f2d16..4dd242e 100644
+--- a/node_modules/react-native-qr-decode-image-camera/src/QRScanner.js
++++ b/node_modules/react-native-qr-decode-image-camera/src/QRScanner.js
+@@ -1,5 +1,5 @@
+ import React, { PureComponent } from "react";
+-import { RNCamera } from "react-native-camera";
++import { RNCamera } from "./Camera";
+ import PropTypes from "prop-types";
+ 
+ import {
+@@ -24,7 +24,8 @@ export default class QRScanner extends PureComponent {
+     super(props);
+     this.state = {
+       scanning: false,
+-      barCodeSize: {}
++      barCodeSize: {},
++      isActive: true
+     };
+   }
+ 
+@@ -55,26 +56,20 @@ export default class QRScanner extends PureComponent {
+     return (
+       <View
+         style={{
+-          flex: 1
++          flex: 1,
++          backgroundColor: "black"
+         }}
+       >
+         <RNCamera
+           style={{
+             flex: 1
+           }}
+-          captureAudio={false}
+           onBarCodeRead={this._handleBarCodeRead}
+-          androidCameraPermissionOptions={null}
+-          androidRecordAudioPermissionOptions={null}
+           notAuthorizedView={this.props.notAuthorizedView()}
+-          barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
+-          flashMode={
+-            !this.props.flashMode
+-              ? RNCamera.Constants.FlashMode.off
+-              : RNCamera.Constants.FlashMode.torch
+-          }
++          flashMode={this.props.flashMode}
+           zoom={this.props.zoom}
+           type={this.props.cameraType}
++          isActive={this.state.isActive}
+         >
+           <View style={[styles.topButtonsContainer, this.props.topViewStyle]}>
+             {this.props.renderTopView()}
+@@ -141,6 +136,7 @@ export default class QRScanner extends PureComponent {
+       this.props.finderY;
+     if (x > viewMinX && y > viewMinY && x < viewMaxX && y < viewMaxY) {
+       if (this.props.isRepeatScan) {
++        this.setState({ isActive: true });
+         if (this.props.vibrate) {
+           Vibration.vibrate();
+         }
+@@ -148,6 +144,7 @@ export default class QRScanner extends PureComponent {
+       } else {
+         if (!this.isShowCode) {
+           this.isShowCode = true;
++          this.setState({ isActive: false });
+           if (this.props.vibrate) {
+             Vibration.vibrate();
+           }
+@@ -188,11 +185,13 @@ export default class QRScanner extends PureComponent {
+ 
+     // The following are unrestricted scanning areas
+     if (this.props.isRepeatScan) {
++      this.setState({ isActive: true });
+       Vibration.vibrate();
+       this.props.onRead(e);
+     } else {
+       if (!this.isShowCode) {
+         this.isShowCode = true;
++        this.setState({ isActive: false });
+         Vibration.vibrate();
+         this.props.onRead(e);
+       }

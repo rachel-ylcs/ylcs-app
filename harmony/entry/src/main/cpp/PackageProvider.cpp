@@ -11,6 +11,7 @@
 #include "FlashListPackage.h"
 #include "SVGPackage.h"
 #include "FastImagePackage.h"
+#include "VisionCameraPackage.h"
 #include "RNImagePickerPackage.h"
 
 using namespace rnoh;
@@ -29,6 +30,7 @@ std::vector<std::shared_ptr<Package>> PackageProvider::getPackages(Package::Cont
         std::make_shared<FlashListPackage>(ctx),
         std::make_shared<SVGPackage>(ctx),
         std::make_shared<FastImagePackage>(ctx),
+        std::make_shared<VisionCameraPackage>(ctx),
         std::make_shared<RNImagePickerPackage>(ctx),
     };
 }

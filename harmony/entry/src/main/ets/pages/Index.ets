@@ -12,11 +12,12 @@ import {
 } from '@rnoh/react-native-openharmony';
 import { createRNPackages } from '../RNPackagesFactory';
 import { WebView, WEB_VIEW } from '@react-native-oh-tpl/react-native-webview';
-import { RTNCameraKitView } from "@react-native-oh-tpl/react-native-camera-kit";
+import { VisionCameraView } from "@react-native-oh-tpl/react-native-vision-camera";
+import { NativeScan } from "@react-native-oh-tpl/qr_decode_image_camera";
 
 const arkTsComponentNames: Array<string> = [
     WEB_VIEW,
-    RTNCameraKitView.NAME
+    VisionCameraView.NAME
 ];
 
 @Builder
@@ -26,11 +27,16 @@ export function buildCustomRNComponent(ctx: ComponentBuilderContext) {
             ctx: ctx.rnComponentContext,
             tag: ctx.tag
         });
-    } else if (ctx.componentName === RTNCameraKitView.NAME) {
-        RTNCameraKitView({
+    } else if (ctx.componentName === VisionCameraView.NAME) {
+        VisionCameraView({
             ctx: ctx.rnComponentContext,
             tag: ctx.tag,
         });
+    } else if (ctx.componentName === NativeScan.NAME) {
+        NativeScan({
+            ctx: ctx.rnComponentContext,
+            tag: ctx.tag
+        })
     }
 }
 

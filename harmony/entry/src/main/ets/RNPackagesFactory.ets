@@ -10,7 +10,8 @@ import { ViewPagerPackage } from '@react-native-oh-tpl/react-native-pager-view/t
 import { SvgPackage } from '@react-native-oh-tpl/react-native-svg/ts';
 import { FastImagePackage } from '@react-native-oh-tpl/react-native-fast-image/ts';
 import { WebViewPackage } from '@react-native-oh-tpl/react-native-webview/ts';
-import { RTNCameraKitPackage } from "@react-native-oh-tpl/react-native-camera-kit/ts";
+import { VisionCameraModulePackage } from "@react-native-oh-tpl/react-native-vision-camera/ts";
+import { RNQrDecodeImageCameraPackage } from '@react-native-oh-tpl/qr_decode_image_camera/ts';
 import { ImagePickerViewPackage } from '@react-native-oh-tpl/react-native-image-picker/ts';
 
 export function createRNPackages(ctx: RNPackageContext): RNPackage[] {
@@ -26,7 +27,8 @@ export function createRNPackages(ctx: RNPackageContext): RNPackage[] {
         new SvgPackage(ctx),
         new FastImagePackage(ctx),
         new WebViewPackage(ctx),
-        new RTNCameraKitPackage(ctx),
+        new VisionCameraModulePackage(ctx),
+        new RNQrDecodeImageCameraPackage(ctx),
         new ImagePickerViewPackage(ctx),
     ];
 }
