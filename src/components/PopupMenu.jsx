@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback, TouchableHighlight, Modal, useWindowDimensions } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback, TouchableHighlight, Modal, StatusBar, useWindowDimensions } from 'react-native';
 
 const styles = StyleSheet.create({
     mask: {
-        ...StyleSheet.absoluteFill,
-        backgroundColor: 'rgba(127, 127, 127, 0.2)',
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     menu: {
         position: 'absolute',
@@ -41,7 +41,7 @@ export default function PopupMenu({ children, anchor, visible, onClose }) {
     }
 
     const menuPosition = {
-        top: anchorSize.top + anchorSize.height,
+        top: StatusBar.currentHeight + anchorSize.top + anchorSize.height,
         left: anchorSize.left + anchorSize.width / 2 - menuSize.width / 2,
     };
 
@@ -57,14 +57,14 @@ export default function PopupMenu({ children, anchor, visible, onClose }) {
         menuPosition.left = windowWidth - menuSize.width;
     }
 
-    menuPosition.top += 15;
-    menuPosition.left -= 15;
+    menuPosition.top += 20;
+    menuPosition.left -= 10;
 
     return (
         <View ref={containerRef} collapsable={false}>
             {anchor}
 
-            <Modal visible={visible} onRequestClose={onClose} animationType="fade" transparent>
+            <Modal visible={visible} onRequestClose={onClose} animationType="fade" transparent statusBarTranslucent>
                 <TouchableWithoutFeedback onPress={onClose} accessible={false}>
                     <View style={styles.mask}>
                         <View style={[styles.menu, menuPosition]} onLayout={(e) => {

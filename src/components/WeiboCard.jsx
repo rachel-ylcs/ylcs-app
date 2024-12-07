@@ -45,6 +45,12 @@ const styles = StyleSheet.create({
 export default function WeiboCard({ content, preview, width }) {
     const navigation = useNavigation();
 
+    // 处理下微博富文本中不标准的 HTML 标签
+    let richText = content.text.replace("src='//", "src='https://");
+    if (richText.includes('<image')) {
+        richText = richText.replace('<image', '<img style="width: 1rem;height: 1rem"');
+    }
+
     return (
         <TouchableWithoutFeedback onPress={preview ? () => {
             navigation.navigate('WeiboDetail', { content });
@@ -53,7 +59,7 @@ export default function WeiboCard({ content, preview, width }) {
                 <WeiboHeader style={styles.header} user={content.user} time={content.time} />
                 <Html
                     contentWidth={width}
-                    source={{ html: content.text }} />
+                    source={{ html: richText }} />
                 <NineGridImage
                     style={styles.images}
                     width={width - 20}
