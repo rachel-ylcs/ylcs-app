@@ -282,7 +282,7 @@ export default {
         const json = await client.get(`/comments/hotflow?id=${id}&mid=${id}`);
         try {
             let result: WeiboComment[] = [];
-            for (let item of json.data.data) {
+            for (let item of (json.data?.data ?? [])) {
                 let comment: WeiboComment = { ...parseComment(item), replies: [] };
                 if (item.pic) {
                     comment.pic = {

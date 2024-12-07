@@ -11,7 +11,7 @@ const client = createHttpClient(config.API_BASE_URL, {
     beforeRequest(url, data, init) {
         if (init.needAuth) {
             let headers = init.headers as Record<string, string>;
-            data.token = headers.token = encryptStorage.getString('token') || '';
+            data.token = headers.Authorization = encryptStorage.getString('token') || '';
         }
         return true;
     },
@@ -523,11 +523,15 @@ export const UserAPI = {
         return result;
     },
 
-    async postTopic(title: string, content: string, files: string[]): Promise<Result<PostTopic>> {
+    async postTopic(title: string, content: string, pics: _SourceUri[] = []): Promise<Result<PostTopic>> {
+        let files: Record<string, _SourceUri> = {};
+        pics.forEach((pic, index) => {
+            files[`pic${index + 1}`] = pic;
+        });
         return await client.postForm(`${this._apiPrefix}/sendTopic`, {
             title,
             content,
-            files,
+            ...files,
         }, {
             needAuth: true,
         });

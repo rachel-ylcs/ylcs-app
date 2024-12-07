@@ -77,11 +77,14 @@ export function createHttpClient<T>(baseUrl: string, options: ClientOptions<T>) 
         },
 
         async postForm(url: string, data: Record<string, any> = {}, init?: RequestOptions) {
-            try {
+            const makeFormData = (data: Record<string, any>) => {
                 let formData = new FormData();
                 for (let key in data) {
                     formData.append(key, data[key]);
                 }
+                return formData;
+            };
+            try {
                 init = {
                     method: 'POST',
                     ...init,
@@ -89,11 +92,12 @@ export function createHttpClient<T>(baseUrl: string, options: ClientOptions<T>) 
                         ...options.headers,
                         ...init?.headers,
                     },
-                    body: formData,
+                    body: makeFormData(data),
                 };
                 if (options.beforeRequest && !options.beforeRequest?.(url, data, init)) {
                     return;
                 }
+                init.body = makeFormData(data);
                 let response = await fetch(`${baseUrl}${url}`, init);
                 return await options.afterResponse?.(response) as T ?? response;
             } catch (error) {

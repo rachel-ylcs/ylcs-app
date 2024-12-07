@@ -15,7 +15,7 @@ export default function WeiboDetailPage({ navigation, route }) {
     useEffect(() => {
         WeiboAPI.getDetails(content.id)
             .then(setData)
-            .catch(console.error);
+            .catch((e) => {});
     }, [content.id]);
 
     return (

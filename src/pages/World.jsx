@@ -28,7 +28,7 @@ export default function WorldPage({ navigation }) {
     const { theme } = useStyles();
 
     return (
-        <ScrollView style={theme.components.Container} overScrollMode="never">
+        <ScrollView style={theme.components.Container} overScrollMode="never" showsVerticalScrollIndicator={false}>
             <View style={styles.section}>
                 <TouchableHighlight onPress={() => {
                     navigation.navigate('Gallery');

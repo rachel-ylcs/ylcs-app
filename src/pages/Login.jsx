@@ -6,6 +6,9 @@ import { UserAPI } from '../api/ylcs';
 import { encryptStorage } from '../store';
 
 const stylesheet = createStyleSheet((theme, runtime) => ({
+    container: {
+        backgroundColor: theme.colors.white,
+    },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -228,16 +231,15 @@ export default function LoginPage({ navigation, route }) {
     const PageFragment = [LoginFragment, RegisterFragment, ForgetFragment][index];
 
     return (
-        <View style={[theme.components.Container, { backgroundColor: theme.colors.white }]}>
-            <ScrollView>
-                <View style={styles.header}>
-                    <Image style={[styles.logo, styles.logoBrand]} source={require('../assets/images/logo.webp')} />
-                    <Image style={[styles.logo, styles.logoTitle]} source={require('../assets/images/logo_title.webp')} />
-                </View>
-                <View style={styles.fragment}>
-                    <PageFragment navigation={navigation} setIndex={setIndex} />
-                </View>
-            </ScrollView>
-        </View>
+        <ScrollView style={[theme.components.Container, styles.container]}
+            overScrollMode="never" showsVerticalScrollIndicator={false}>
+            <View style={styles.header}>
+                <Image style={[styles.logo, styles.logoBrand]} source={require('../assets/images/logo.webp')} />
+                <Image style={[styles.logo, styles.logoTitle]} source={require('../assets/images/logo_title.webp')} />
+            </View>
+            <View style={styles.fragment}>
+                <PageFragment navigation={navigation} setIndex={setIndex} />
+            </View>
+        </ScrollView>
     );
 }

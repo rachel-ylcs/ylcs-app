@@ -196,7 +196,7 @@ export default function MePage({ navigation }) {
     }, []);
 
     const signin = useCallback(() => {
-        UserAPI.signin().then(() => {
+        UserAPI.signin().then((result) => {
             Toast.show('签到成功');
             refreshUser();
         }).catch((e) => {});

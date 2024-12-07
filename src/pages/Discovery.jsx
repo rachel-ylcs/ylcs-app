@@ -12,6 +12,7 @@ import LoadingIndicator from '../components/LoadingIndicator';
 import OfflineIndicator from '../components/OfflineIndicator';
 import LoadMoreItem from '../components/LoadMoreItem';
 import TopicPreviewCard from '../components/TopicPreviewCard';
+import { useNeedAuth } from '../hooks/useNeedAuth';
 import { useTopicStores } from '../store/Topic';
 import SearchIcon from '../assets/images/search.svg';
 import AddIcon from '../assets/images/add.svg';
@@ -183,10 +184,10 @@ export default function GalleryPage({ navigation }) {
                                 <AddIcon width={24} height={24} fill="dimgray" />
                             </TouchableWithoutFeedback>
                         )} visible={menuVisible} onClose={() => setMenuVisible(false)}>
-                            <PopupMenu.Item text="发图文" onPress={() => {
+                            <PopupMenu.Item text="发图文" onPress={useNeedAuth(() => {
                                 setMenuVisible(false);
                                 navigation.navigate('PostTopic');
-                            }} />
+                            })} />
                             <PopupMenu.Item text="发视频" onPress={() => Toast.show('上传视频功能正在开发中')} />
                             <PopupMenu.Item text="直播" onPress={() => Toast.show('直播功能正在开发中')} />
                         </PopupMenu>

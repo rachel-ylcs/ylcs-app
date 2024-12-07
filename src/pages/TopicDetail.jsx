@@ -61,8 +61,8 @@ export default function TopicDetailPage({ navigation, route }) {
 
     const requestData = useCallback(() => {
         UserAPI.getTopic(topicId)
-            .then((value) => setData(value.data))
-            .catch(console.error);
+            .then((result) => setData(result.data))
+            .catch((e) => {});
     }, [topicId]);
 
     const postComment = useNeedAuth(() => {
@@ -71,7 +71,7 @@ export default function TopicDetailPage({ navigation, route }) {
             return;
         }
         UserAPI.postComment(topicId, comment)
-            .then((value) => {
+            .then((result) => {
                 Toast.show('评论成功');
                 setComment('');
                 setModalVisible(false);
@@ -82,7 +82,7 @@ export default function TopicDetailPage({ navigation, route }) {
 
     const giveCoin = useNeedAuth(useCallback((coinNum) => {
         UserAPI.giveCoin(data.uid, data.tid, coinNum)
-            .then((value) => Toast.show('投币成功'))
+            .then((result) => Toast.show('投币成功'))
             .catch((e) => {});
     }, [data]));
 

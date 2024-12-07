@@ -16,9 +16,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderTopColor: '#606060',
-        borderTopWidth: 0.25,
+        borderTopWidth: StyleSheet.hairlineWidth,
         borderBottomColor: '#606060',
-        borderBottomWidth: 0.25,
+        borderBottomWidth: StyleSheet.hairlineWidth,
     },
     itemText: {
         fontSize: 18,
