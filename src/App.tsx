@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, StatusBar } from 'react-native';
+import { StyleSheet, Text, Image, StatusBar, StyleProp, TextStyle, View } from 'react-native';
 import { useStyles } from 'react-native-unistyles';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -44,23 +44,39 @@ function NavBar(): JSX.Element {
 }
 
 function App(): JSX.Element {
+    const watermarkStyle: StyleProp<TextStyle> = {
+        width: '100%',
+        zIndex: 9999,
+        transform: [{ rotate: '-45deg' }, { translateY: -25 }],
+        fontSize: 20,
+        color: 'rgba(0, 0, 0, 0.1)',
+        textAlign: 'center',
+    };
+
     return (
-        <SafeAreaProvider>
-            <GestureHandlerRootView style={StyleSheet.absoluteFill}>
-                <BottomSheetModalProvider>
-                    <NavigationContainer>
-                        {/* HACK 让android端默认打开app就是全面屏, android端还得加个splash */}
-                        <StatusBar animated={true} barStyle="dark-content" backgroundColor="transparent" translucent={true} />
-                        <Stack.Navigator>
-                            <Stack.Screen name="Home" options={{ headerShown: false }} component={NavBar} />
-                            {routes.map((item) => (
-                                <Stack.Screen key={item.name} name={item.name} options={item.option} getId={item.getId} component={item.component} />
-                            ))}
-                        </Stack.Navigator>
-                    </NavigationContainer>
-                </BottomSheetModalProvider>
-            </GestureHandlerRootView>
-        </SafeAreaProvider>
+        <>
+            <SafeAreaProvider>
+                <GestureHandlerRootView style={StyleSheet.absoluteFill}>
+                    <BottomSheetModalProvider>
+                        <NavigationContainer>
+                            {/* HACK 让android端默认打开app就是全面屏, android端还得加个splash */}
+                            <StatusBar animated={true} barStyle="dark-content" backgroundColor="transparent" translucent={true} />
+                            <Stack.Navigator>
+                                <Stack.Screen name="Home" options={{ headerShown: false }} component={NavBar} />
+                                {routes.map((item) => (
+                                    <Stack.Screen key={item.name} name={item.name} options={item.option} getId={item.getId} component={item.component} />
+                                ))}
+                            </Stack.Navigator>
+                        </NavigationContainer>
+                    </BottomSheetModalProvider>
+                </GestureHandlerRootView>
+            </SafeAreaProvider>
+            <View style={[StyleSheet.absoluteFill, { flexDirection: 'column', justifyContent: 'space-around' }]} pointerEvents="none">
+                <Text style={watermarkStyle}>{'正在开发中\n不代表最终品质\n仅供银临茶舍项目组内部测试使用'}</Text>
+                <Text style={watermarkStyle}>{'正在开发中\n不代表最终品质\n仅供银临茶舍项目组内部测试使用'}</Text>
+                <Text style={watermarkStyle}>{'正在开发中\n不代表最终品质\n仅供银临茶舍项目组内部测试使用'}</Text>
+            </View>
+        </>
     );
 }
 
