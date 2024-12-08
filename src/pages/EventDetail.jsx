@@ -30,6 +30,8 @@ function EventDetailPage({ navigation, route }) {
     const { width } = useWindowDimensions();
     const { data, error, refresh } = useActivityStore((state) => state);
 
+    const timestamp = route.params.ts;
+
     const links = useMemo(() => {
         const links = [];
         if (data?.showstart) {
@@ -64,9 +66,8 @@ function EventDetailPage({ navigation, route }) {
     })), [data]);
 
     useEffect(() => {
-        refresh(route.params.ts);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        refresh(timestamp);
+    }, [refresh, timestamp]);
 
     useEffect(() => {
         if (data?.title) {
