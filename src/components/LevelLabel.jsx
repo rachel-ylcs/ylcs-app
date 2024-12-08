@@ -21,11 +21,11 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function LevelLabel({ style, level }) {
+export default function LevelLabel({ style, level, customTitle }) {
     return (
         <View style={[styles.container, style]}>
             <Image style={styles.background} source={level?.background ?? LEVELS_TABLE[0].background} />
-            <Text style={styles.name}>{level?.name ?? LEVELS_TABLE[0].name}</Text>
+            <Text style={styles.name}>{(customTitle || level?.name) ?? LEVELS_TABLE[0].name}</Text>
         </View>
     );
 }

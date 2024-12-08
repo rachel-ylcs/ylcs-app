@@ -55,7 +55,7 @@ export default function TopicHeader({ style, content, onMorePress }) {
                         <Text style={styles.subtitle}>{content.location}</Text>
                     </View>
                 </View>
-                <LevelLabel style={styles.level} level={content.level} />
+                <LevelLabel style={styles.level} level={content.level} customTitle={content.label} />
                 <TouchableWithoutFeedback onPress={onMorePress}>
                     <MoreIcon width={32} height={32} fill="gray" />
                 </TouchableWithoutFeedback>

@@ -291,8 +291,10 @@ export interface LevelInfo {
 
 const LEVEL_BACKGROUNDS: Record<string, ImageRequireSource> = {
     fucaoweiying: require('../assets/images/level_bg/fucaoweiying.webp'),
+    pifuduhai: require('../assets/images/level_bg/pifuduhai.webp'),
     fenghuaxueyue: require('../assets/images/level_bg/fenghuaxueyue.webp'),
     liuli: require('../assets/images/level_bg/liuli.webp'),
+    lidishigongfen: require('../assets/images/level_bg/fenghuaxueyue.webp'),
     shanseyouwuzhong: require('../assets/images/level_bg/shanseyouwuzhong.webp'),
 };
 
@@ -300,9 +302,9 @@ export const LEVELS_TABLE: LevelInfo[] = [
     { level: 1, coins: 0, name: '风露婆娑', background: LEVEL_BACKGROUNDS.fucaoweiying },
     { level: 2, coins: 5, name: '剑心琴魄', background: LEVEL_BACKGROUNDS.fucaoweiying },
     { level: 3, coins: 10, name: '梦外篝火', background: LEVEL_BACKGROUNDS.fucaoweiying },
-    { level: 4, coins: 20, name: '烈火胜情爱', background: LEVEL_BACKGROUNDS.fucaoweiying },
-    { level: 5, coins: 30, name: '青山撞入怀', background: LEVEL_BACKGROUNDS.fucaoweiying },
-    { level: 6, coins: 50, name: '雨久苔如海', background: LEVEL_BACKGROUNDS.fenghuaxueyue },
+    { level: 4, coins: 20, name: '烈火胜情爱', background: LEVEL_BACKGROUNDS.pifuduhai },
+    { level: 5, coins: 30, name: '青山撞入怀', background: LEVEL_BACKGROUNDS.pifuduhai },
+    { level: 6, coins: 50, name: '雨久苔如海', background: LEVEL_BACKGROUNDS.pifuduhai },
     { level: 7, coins: 75, name: '明雪澄岚', background: LEVEL_BACKGROUNDS.fenghuaxueyue },
     { level: 8, coins: 100, name: '春风韵尾', background: LEVEL_BACKGROUNDS.fenghuaxueyue },
     { level: 9, coins: 125, name: '银河万顷', background: LEVEL_BACKGROUNDS.fenghuaxueyue },
@@ -310,10 +312,10 @@ export const LEVELS_TABLE: LevelInfo[] = [
     { level: 11, coins: 200, name: '薄暮忽晚', background: LEVEL_BACKGROUNDS.liuli },
     { level: 12, coins: 250, name: '沧流彼岸', background: LEVEL_BACKGROUNDS.liuli },
     { level: 13, coins: 300, name: '清荷玉盏', background: LEVEL_BACKGROUNDS.liuli },
-    { level: 14, coins: 350, name: '颜如舜华', background: LEVEL_BACKGROUNDS.liuli },
-    { level: 15, coins: 400, name: '逃奔风月', background: LEVEL_BACKGROUNDS.liuli },
-    { level: 16, coins: 500, name: '自在盈缺', background: LEVEL_BACKGROUNDS.shanseyouwuzhong },
-    { level: 17, coins: 600, name: '青鸟遁烟', background: LEVEL_BACKGROUNDS.shanseyouwuzhong },
+    { level: 14, coins: 350, name: '颜如舜华', background: LEVEL_BACKGROUNDS.lidishigongfen },
+    { level: 15, coins: 400, name: '逃奔风月', background: LEVEL_BACKGROUNDS.lidishigongfen },
+    { level: 16, coins: 500, name: '自在盈缺', background: LEVEL_BACKGROUNDS.lidishigongfen },
+    { level: 17, coins: 600, name: '青鸟遁烟', background: LEVEL_BACKGROUNDS.lidishigongfen },
     { level: 18, coins: 700, name: '天生妙罗帷', background: LEVEL_BACKGROUNDS.shanseyouwuzhong },
     { level: 19, coins: 800, name: '梦醒般惊蜕', background: LEVEL_BACKGROUNDS.shanseyouwuzhong },
     { level: 20, coins: 900, name: '韶华的结尾', background: LEVEL_BACKGROUNDS.shanseyouwuzhong },

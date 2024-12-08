@@ -83,7 +83,7 @@ export default function ProfileCard({ user, onPress }) {
                     <View style={styles.layout1}>
                         <FastImage style={styles.avatar} source={{ uri: user?.avatar }} />
                         <Text style={styles.nickname}>{user?.name ?? '点击登录'}</Text>
-                        <LevelLabel level={user?.level}/>
+                        <LevelLabel level={user?.level} customTitle={user?.label} />
                     </View>
                     <Text style={styles.signature}>{user?.signature ?? '泸沽烟水里的过客…'}</Text>
                     <View style={styles.layout2}>
