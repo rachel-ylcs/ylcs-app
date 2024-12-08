@@ -101,6 +101,7 @@ export class User implements UserInfo {
 
     constructor(userInfo: UserInfo) {
         Object.assign(this, userInfo);
+        this.topics = userInfo.topics?.map((topic) => new TopicPreview(topic));
     }
 
     get avatar() {
