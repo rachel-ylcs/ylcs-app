@@ -9,6 +9,16 @@ import { createMailboxStore, MailboxProvider, useMailboxStore } from '../store/M
 import { UserAPI, MailType } from '../api/ylcs';
 
 const styles = StyleSheet.create({
+    emptyMailbox: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        flex: 1,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        fontSize: 18,
+        color: 'black',
+    },
     mail: {
         flexDirection: 'row',
         backgroundColor: 'white',
@@ -103,7 +113,8 @@ function MailItem({ content, refresh }) {
                 cancelable: true,
             });
         }
-    }, [content, refresh]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [content]);
 
     const badgeStyle = content.type === MailType.CONFIRM ? styles.mailBadgeConfirm : content.type === MailType.DECISION ? styles.mailBadgeDecision : null;
 
@@ -130,7 +141,8 @@ function MailboxPage({ navigation, route }) {
 
     useEffect(() => {
         refresh();
-    }, [refresh]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <View style={theme.components.Container}>
@@ -143,12 +155,14 @@ function MailboxPage({ navigation, route }) {
                 refreshing={refreshing}
                 overScrollMode="never"
                 showsVerticalScrollIndicator={false} />
-            {!data && (
+            {!data ? (
                 !error ? (
                     <LoadingIndicator text="加载邮件中..." />
                 ) : (
                     <OfflineIndicator onRetry={refresh} />
                 )
+            ) : (
+                data.length === 0 && <Text style={styles.emptyMailbox}>你还没有收到邮件哦~</Text>
             )}
         </View>
     );

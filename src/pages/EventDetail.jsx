@@ -67,7 +67,8 @@ function EventDetailPage({ navigation, route }) {
 
     useEffect(() => {
         refresh(timestamp);
-    }, [refresh, timestamp]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [timestamp]);
 
     useEffect(() => {
         if (data?.title) {

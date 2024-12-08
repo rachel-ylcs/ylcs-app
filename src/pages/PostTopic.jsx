@@ -83,7 +83,8 @@ export default function PostTopicPage({ navigation, route }) {
                 navigation.goBack();
             })
             .catch((e) => {});
-    }, [navigation, refresh, uploadAssets]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [navigation, uploadAssets]);
 
     const onImagePress = useCallback(async (index) => {
         // 点击图片删除
