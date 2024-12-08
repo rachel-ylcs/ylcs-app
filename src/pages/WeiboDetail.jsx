@@ -10,6 +10,7 @@ export default function WeiboDetailPage({ navigation, route }) {
     const { width } = useWindowDimensions();
     const { theme } = useStyles();
     const [data, setData] = useState(null);
+
     const content = route.params.content;
 
     useEffect(() => {

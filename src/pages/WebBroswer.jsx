@@ -4,6 +4,7 @@ import { WebView } from 'react-native-webview';
 
 export default function WebBrowserPage({ navigation, route }) {
     const { theme } = useStyles();
+
     const { url } = route.params;
 
     return (

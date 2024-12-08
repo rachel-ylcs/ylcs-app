@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function TopicCard({ content, width }) {
+export default function TopicCard({ content, width, onMorePress }) {
     const navigation = useNavigation();
 
     const images = useMemo(() => content.pics?.map((pic) => ({
@@ -38,7 +38,7 @@ export default function TopicCard({ content, width }) {
 
     return (
         <View style={styles.container}>
-            <TopicHeader style={styles.header} content={content} onMorePress={(e) => {}} />
+            <TopicHeader style={styles.header} content={content} onMorePress={onMorePress} />
             <Text style={styles.title}>{content.title}</Text>
             <Text style={styles.content}>{content.content}</Text>
             <NineGridImage

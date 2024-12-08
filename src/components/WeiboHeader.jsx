@@ -40,7 +40,7 @@ export default function WeiboHeader({ style, user, time }) {
     const navigation = useNavigation();
 
     return (
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('WeiboUser', { user })}>
+        <TouchableWithoutFeedback onPress={() => navigation.push('WeiboUser', { user })}>
             <View style={[styles.container, style]}>
                 <FastImage style={styles.avatar} source={{ uri: user.avatar }} />
                 <View style={styles.layout1}>

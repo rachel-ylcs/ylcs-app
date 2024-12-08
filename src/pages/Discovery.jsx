@@ -161,6 +161,7 @@ export default function GalleryPage({ navigation }) {
     const tabProps = useRef(null);
     const [index, setIndex] = useState(1);
     const [menuVisible, setMenuVisible] = useState(false);
+
     const routes = [
         { key: 'follows', title: '关注' },
         { key: 'latest', title: '最新' },

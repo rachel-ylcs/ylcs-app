@@ -51,7 +51,7 @@ export default function TopicPreviewCard({ content, width }) {
 
     return (
         <TouchableWithoutFeedback onPress={() => {
-            navigation.navigate('TopicDetail', { id: content.tid });
+            navigation.push('TopicDetail', { id: content.tid });
         }}>
             <View style={styles.container}>
                 {content.pic && <FastImage

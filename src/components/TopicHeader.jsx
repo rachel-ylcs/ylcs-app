@@ -45,7 +45,7 @@ export default function TopicHeader({ style, content, onMorePress }) {
     const navigation = useNavigation();
 
     return (
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('User', { uid: content.uid })}>
+        <TouchableWithoutFeedback onPress={() => navigation.push('User', { uid: content.uid })}>
             <View style={[styles.container, style]}>
                 <FastImage style={styles.avatar} source={{ uri: content.avatar }} />
                 <View style={styles.layout1}>

@@ -119,12 +119,6 @@ function RegisterFragment({ navigation, setIndex }) {
     const repeatedPassword = useRef('');
     const inviter = useRef('');
 
-    useEffect(() => {
-        navigation.setOptions({
-            headerTitle: '注册',
-        });
-    }, [navigation]);
-
     const register = useCallback(async () => {
         try {
             if (!username.current || !password.current) {
@@ -144,6 +138,12 @@ function RegisterFragment({ navigation, setIndex }) {
             setIndex(0);
         } catch (_) {}
     }, [setIndex]);
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerTitle: '注册',
+        });
+    }, [navigation]);
 
     return (
         <>
@@ -180,12 +180,6 @@ function ForgetFragment({ navigation, setIndex }) {
     const password = useRef('');
     const repeatedPassword = useRef('');
 
-    useEffect(() => {
-        navigation.setOptions({
-            headerTitle: '忘记密码',
-        });
-    }, [navigation]);
-
     const forget = useCallback(async () => {
         try {
             if (!username.current || !password.current) {
@@ -201,6 +195,12 @@ function ForgetFragment({ navigation, setIndex }) {
             setIndex(0);
         } catch (_) {}
     }, [setIndex]);
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerTitle: '忘记密码',
+        });
+    }, [navigation]);
 
     return (
         <>

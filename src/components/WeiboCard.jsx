@@ -53,7 +53,7 @@ export default function WeiboCard({ content, preview, width }) {
 
     return (
         <TouchableWithoutFeedback onPress={preview ? () => {
-            navigation.navigate('WeiboDetail', { content });
+            navigation.push('WeiboDetail', { content });
         } : undefined}>
             <View style={styles.container}>
                 <WeiboHeader style={styles.header} user={content.user} time={content.time} />

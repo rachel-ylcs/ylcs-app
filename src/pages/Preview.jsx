@@ -6,6 +6,7 @@ export default function PreviewPage({ navigation, route }) {
     let uris = route.params.images.map((image) => ({
         uri: image.url ?? image,
     }));
+
     return (
         <ImageView
             images={uris}

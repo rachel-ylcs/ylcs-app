@@ -4,6 +4,7 @@ import { useStyles } from 'react-native-unistyles';
 import { FlashList } from '@shopify/flash-list';
 import Toast from 'react-native-simple-toast';
 import LoadingIndicator from '../components/LoadingIndicator';
+import OfflineIndicator from '../components/OfflineIndicator';
 import TopicCard from '../components/TopicCard';
 import TopicComment from '../components/TopicComment';
 import { useNeedAuth } from '../hooks/useNeedAuth';
@@ -12,6 +13,21 @@ import GiveCoinIcon from '../assets/images/give_coin.svg';
 import SendIcon from '../assets/images/send.svg';
 
 const styles = StyleSheet.create({
+    commentListHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '100%',
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        backgroundColor: 'white',
+        borderBottomColor: '#bbb',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    commentNum: {
+        fontSize: 14,
+        color: 'black',
+    },
     commentBox: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -54,15 +70,18 @@ export default function TopicDetailPage({ navigation, route }) {
     const { width } = useWindowDimensions();
     const { theme } = useStyles();
     const [data, setData] = useState(null);
+    const [error, setError] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const inputComment = useRef(null);
     const [comment, setComment] = useState('');
+
     const topicId = route.params.id;
 
     const requestData = useCallback(() => {
+        setError(false);
         UserAPI.getTopic(topicId)
             .then((result) => setData(result.data))
-            .catch((e) => {});
+            .catch((e) => setError(true));
     }, [topicId]);
 
     const postComment = useNeedAuth(() => {
@@ -94,9 +113,7 @@ export default function TopicDetailPage({ navigation, route }) {
         }
     }, [modalVisible]);
 
-    useEffect(() => {
-        requestData();
-    }, [requestData]);
+    useEffect(requestData, [requestData]);
 
     return (
         <View style={theme.components.Container}>
@@ -105,11 +122,18 @@ export default function TopicDetailPage({ navigation, route }) {
                     <FlashList
                         estimatedItemSize={100}
                         data={data.comments}
-                        renderItem={({item}) => <TopicComment content={item} width={width} />}
+                        renderItem={({item}) => <TopicComment content={item} width={width} onMorePress={() => {}} />}
                         keyExtractor={(item, index) => index}
                         // onEndReachedThreshold={0.25}
                         // onEndReached={data !== null ? loadMore : undefined}
-                        ListHeaderComponent={<TopicCard content={data} width={width} />}
+                        ListHeaderComponent={(
+                            <>
+                                <TopicCard content={data} width={width} onMorePress={() => {}} />
+                                <View style={styles.commentListHeader}>
+                                    <Text style={styles.commentNum}>{data.comments.length > 0 ? `共 ${data.comments.length} 条评论` : '还没有评论哦，快来留下你的足迹吧~'}</Text>
+                                </View>
+                            </>
+                        )}
                         // ListFooterComponent={data !== null && loading && <LoadMoreItem />}
                         overScrollMode="never"
                         showsVerticalScrollIndicator={false} />
@@ -131,7 +155,11 @@ export default function TopicDetailPage({ navigation, route }) {
                     </Modal>
                 </>
             ) : (
-                <LoadingIndicator text="加载帖子中..." />
+                !error ? (
+                    <LoadingIndicator text="加载帖子中..." />
+                ) : (
+                    <OfflineIndicator onRetry={requestData} />
+                )
             )}
         </View>
     );

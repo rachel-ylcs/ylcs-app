@@ -25,7 +25,7 @@ export default function Html(props) {
         a: {
             async onPress(event, href, htmlAttribs, target) {
                 if (href.startsWith('http://') || href.startsWith('https://')) {
-                    navigation.navigate('WebBrowser', { url: href });
+                    navigation.push('WebBrowser', { url: href });
                     return;
                 }
                 console.log('Cannot handle URL:', href);

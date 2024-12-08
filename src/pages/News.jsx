@@ -100,6 +100,7 @@ export default function NewsPage({ navigation }) {
     const { theme } = useStyles();
     const tarBar = useRef(null);
     const [index, setIndex] = useState(0);
+
     const routes = [
         { key: 'weibo', title: '微博' },
         { key: 'chaohua', title: '超话' },

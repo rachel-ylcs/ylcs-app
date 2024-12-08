@@ -17,13 +17,19 @@ const styles = StyleSheet.create({
         lineHeight: 20,
         color: 'black',
     },
+    pinned: {
+        color: 'orangered',
+    },
 });
 
-export default function TopicComment({ style, content }) {
+export default function TopicComment({ style, content, onMorePress }) {
     return (
         <View style={[styles.container, style]}>
-            <TopicHeader style={styles.header} content={content} onMorePress={(e) => {}} />
-            <Text style={styles.content}>{content.content}</Text>
+            <TopicHeader style={styles.header} content={content} onMorePress={onMorePress} />
+            <Text style={styles.content}>
+                {content.isTop && <Text style={styles.pinned}>[置顶] </Text>}
+                {content.content}
+            </Text>
         </View>
     );
 }
