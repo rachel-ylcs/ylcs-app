@@ -112,7 +112,7 @@ export default function NewsPage({ navigation }) {
                 return tarBar.current;
             },
             headerRight: () => (
-                <TouchableWithoutFeedback onPress={() => Toast.show('点击了编辑微博关注按钮')}>
+                <TouchableWithoutFeedback onPress={() => navigation.navigate('WeiboFollows')}>
                     <EditIcon style={{ marginRight: theme.sizes.xxxl }}
                         width={theme.sizes.xxxl} height={theme.sizes.xxxl} fill={theme.colors.icon} />
                 </TouchableWithoutFeedback>

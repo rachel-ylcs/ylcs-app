@@ -5,12 +5,14 @@ import WorldPage from './pages/World';
 import MePage from './pages/Me';
 import WeiboDetailPage from './pages/WeiboDetail';
 import WeiboUserPage from './pages/WeiboUser';
+import WeiboFollowsPage from './pages/WeiboFollows';
 import TopicDetailPage from './pages/TopicDetail';
 import UserPage from './pages/User';
 import PostTopicPage from './pages/PostTopic';
 import GalleryPage from './pages/Gallery';
 import ScanCodePage from './pages/ScanCode';
 import SettingsPage from './pages/Settings';
+import AboutPage from './pages/About';
 import LoginPage from './pages/Login';
 import MailboxPage from './pages/Mailbox';
 import EventDetailPage from './pages/EventDetail';
@@ -80,6 +82,11 @@ export const routes = [
         component: WeiboUserPage,
     },
     {
+        name: 'WeiboFollows',
+        option: { title: '微博关注' },
+        component: WeiboFollowsPage,
+    },
+    {
         name: 'TopicDetail',
         option: { title: '帖子正文' },
         component: TopicDetailPage,
@@ -108,6 +115,11 @@ export const routes = [
         name: 'Settings',
         option: { title: '设置' },
         component: SettingsPage,
+    },
+    {
+        name: 'About',
+        option: { title: '关于茶舍' },
+        component: AboutPage,
     },
     {
         name: 'Login',

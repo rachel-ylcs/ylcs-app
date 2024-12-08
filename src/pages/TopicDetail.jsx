@@ -84,7 +84,7 @@ export default function TopicDetailPage({ navigation, route }) {
             .catch((e) => setError(true));
     }, [topicId]);
 
-    const postComment = useNeedAuth(() => {
+    const postComment = useNeedAuth(useCallback(() => {
         if (comment.trim() === '') {
             Toast.show('评论内容不能为空');
             return;
@@ -97,7 +97,7 @@ export default function TopicDetailPage({ navigation, route }) {
                 requestData();
             })
             .catch((e) => {});
-    }, [topicId]);
+    }, [topicId, comment, requestData]));
 
     const giveCoin = useNeedAuth(useCallback((coinNum) => {
         UserAPI.giveCoin(data.uid, data.tid, coinNum)

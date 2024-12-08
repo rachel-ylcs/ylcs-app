@@ -401,9 +401,9 @@ export const UserAPI = {
         });
     },
 
-    async updateAvatar(filename: string): Promise<Result<never>> {
+    async updateAvatar(file: _SourceUri): Promise<Result<never>> {
         return await client.postForm(`${this._apiPrefix}/updateAvatar`, {
-            avatar: filename,
+            avatar: file,
         }, {
             needAuth: true,
         });
@@ -417,9 +417,9 @@ export const UserAPI = {
         });
     },
 
-    async updateBackground(filename: string): Promise<Result<never>> {
+    async updateBackground(file: _SourceUri): Promise<Result<never>> {
         return await client.postForm(`${this._apiPrefix}/updateWall`, {
-            wall: filename,
+            wall: file,
         }, {
             needAuth: true,
         });

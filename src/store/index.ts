@@ -32,7 +32,6 @@ export const stateStorage = createJSONStorage<any>(() => cacheStorage as StateSt
                 signature: value.signature,
                 label: value.label,
                 coin: value.coin,
-                topics: value.topics,
             };
             return { type: 'user', value: userInfo };
         }

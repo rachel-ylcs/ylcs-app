@@ -43,7 +43,7 @@ export default function WorldPage({ navigation }) {
             <View style={styles.section}>
                 <TouchableHighlight onPress={() => {}}>
                     <View style={styles.item}>
-                        <Text style={[styles.itemText, { marginLeft: 44 }]}>更多玩法敬请期待...</Text>
+                        <Text style={[styles.itemText, { marginLeft: 44 }]}>更多玩法敬请期待…</Text>
                     </View>
                 </TouchableHighlight>
             </View>

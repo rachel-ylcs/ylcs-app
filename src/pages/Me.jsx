@@ -128,16 +128,16 @@ export default function MePage({ navigation }) {
     const { data, refreshing, error, refresh } = useActivitiesStore();
     const bottomSheetRef = useRef(null);
 
-    const showContactCard = useCallback(() => {
+    const showContactCard = useNeedAuth(useCallback(() => {
         bottomSheetRef.current?.present();
-    }, []);
+    }, []));
 
-    const signin = useCallback(() => {
+    const signin = useNeedAuth(useCallback(() => {
         UserAPI.signin().then((result) => {
             Toast.show('签到成功');
             refreshUser();
         }).catch((e) => {});
-    }, [refreshUser]);
+    }, [refreshUser]));
 
     const dates = useMemo(() => {
         let markedDates = {};
@@ -152,7 +152,7 @@ export default function MePage({ navigation }) {
             headerTitle: '',
             headerRight: () => (
                 <View style={styles.headerActions}>
-                    <TouchableWithoutFeedback onPress={useNeedAuth(showContactCard)}>
+                    <TouchableWithoutFeedback onPress={showContactCard}>
                         <ProfileIcon style={{ marginRight: theme.sizes.xl }}
                             width={theme.sizes.xxxl} height={theme.sizes.xxxl} fill={theme.colors.white} />
                     </TouchableWithoutFeedback>
@@ -203,7 +203,7 @@ export default function MePage({ navigation }) {
                     }
                 }} />
                 <View style={[theme.components.Card, styles.functionCard]}>
-                    <TouchableWithoutFeedback onPress={useNeedAuth(signin)}>
+                    <TouchableWithoutFeedback onPress={signin}>
                         <View style={styles.functionButton}>
                             <SigninIcon width={24} height={24} fill="black" />
                             <Text style={styles.functionLabel}>签到</Text>
