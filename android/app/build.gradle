@@ -1,5 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+apply plugin: "com.tencent.vasdolly"
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -51,11 +52,6 @@ react {
 }
 
 /**
- * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
- */
-def enableProguardInReleaseBuilds = false
-
-/**
  * The preferred build flavor of JavaScriptCore (JSC)
  *
  * For example, to use the international variant, you can use:
@@ -68,18 +64,29 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
+boolean isReleaseTask = gradle.startParameter.taskNames.any { it.contains("Release") }
+
 android {
-    ndkVersion rootProject.ext.ndkVersion
-
-    compileSdk rootProject.ext.compileSdkVersion
-
     namespace "love.yinlin.ylcs"
+    compileSdk rootProject.ext.compileSdkVersion
+    ndkVersion rootProject.ext.ndkVersion
     defaultConfig {
         applicationId "love.yinlin.ylcs"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.appVersionCode
         versionName rootProject.ext.appVersion
+        ndk {
+            abiFilters 'x86_64', 'arm64-v8a'
+        }
+    }
+    splits {
+        abi {
+            enable isReleaseTask
+            reset()
+            include 'x86_64', 'arm64-v8a'
+            universalApk true
+        }
     }
     signingConfigs {
         debug {
@@ -97,10 +104,18 @@ android {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
             signingConfig signingConfigs.debug
-            minifyEnabled enableProguardInReleaseBuilds
+            minifyEnabled false
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+}
+
+channel {
+//    baseApk = new File(project.buildDir, "/outputs/apk/release/app-arm64-v8a-release.apk")
+    outputDir = new File(project.buildDir, "/outputs/apk/channel")
+    apkNameFormat ='${appId}_${versionName}_${versionCode}_${flavorName}'
+    fastMode = false
+    lowMemory = false
 }
 
 dependencies {
@@ -120,6 +135,8 @@ dependencies {
     }
 
     implementation("com.facebook.fresco:webpsupport:2.5.0")
+
+    api("com.tencent.vasdolly:helper:3.0.6")
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

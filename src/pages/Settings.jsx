@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
     title: {
-        fontSize: 16,
+        fontSize: 14,
         color: 'steelblue',
         paddingHorizontal: 20,
         paddingVertical: 10,
