@@ -1,0 +1,16 @@
+diff --git a/node_modules/@react-native-oh-tpl/react-native-track-player/package.json b/node_modules/@react-native-oh-tpl/react-native-track-player/package.json
+index 6ccc941..36e7f12 100644
+--- a/node_modules/@react-native-oh-tpl/react-native-track-player/package.json
++++ b/node_modules/@react-native-oh-tpl/react-native-track-player/package.json
+@@ -121,11 +121,6 @@
+     }
+   },
+   "harmony": {
+-    "codegenConfig": {
+-      "specPaths": [
+-        "./src"
+-      ]
+-    },
+     "alias": "react-native-track-player"
+   }
+ }

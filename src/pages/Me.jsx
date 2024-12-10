@@ -46,6 +46,7 @@ const stylesheet = createStyleSheet((theme, runtime) => ({
         marginTop: 2,
     },
     calendarCard: {
+        minHeight: 300,
         flexDirection: 'column',
         marginHorizontal: 10,
         marginVertical: 5,
