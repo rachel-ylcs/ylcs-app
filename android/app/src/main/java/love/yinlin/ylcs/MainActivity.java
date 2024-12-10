@@ -1,5 +1,10 @@
 package love.yinlin.ylcs;
 
+import android.os.Build;
+import android.os.Bundle;
+
+import androidx.activity.EdgeToEdge;
+
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
@@ -28,5 +33,15 @@ public class MainActivity extends ReactActivity {
                 getMainComponentName(),
                 // If you opted-in for the New Architecture, we enable the Fabric Renderer.
                 DefaultNewArchitectureEntryPoint.getFabricEnabled());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // 未来可能会使用react-native-edge-to-edge代替
+        EdgeToEdge.enable(this);
+        super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            getWindow().setNavigationBarContrastEnforced(false);
+        }
     }
 }

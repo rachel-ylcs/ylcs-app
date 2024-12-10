@@ -59,8 +59,6 @@ function App(): JSX.Element {
                 <GestureHandlerRootView style={StyleSheet.absoluteFill}>
                     <BottomSheetModalProvider>
                         <NavigationContainer>
-                            {/* HACK 让android端默认打开app就是全面屏, android端还得加个splash */}
-                            <StatusBar animated={true} barStyle="dark-content" backgroundColor="transparent" translucent={true} />
                             <Stack.Navigator>
                                 <Stack.Screen name="Home" options={{ headerShown: false }} component={NavBar} />
                                 {routes.map((item) => (
