@@ -92,7 +92,7 @@ struct Index {
                             // `/data/app/el2/100/base/com.rnoh.tester/files/bundle.harmony.js`
                             // on your device. The path mismatch is due to app sandboxing on HarmonyOS
                             new FileJSBundleProvider('/data/storage/el2/base/files/bundle.harmony.js'),
-                            new ResourceJSBundleProvider(this.rnohCoreContext.uiAbilityContext.resourceManager, 'hermes_bundle.hbc'),
+                            new ResourceJSBundleProvider(this.rnohCoreContext.uiAbilityContext.resourceManager, 'bundle.harmony.hbc'),
                             new ResourceJSBundleProvider(this.rnohCoreContext.uiAbilityContext.resourceManager, 'bundle.harmony.js')
                         ]),
                         this.rnohCoreContext.logger)
