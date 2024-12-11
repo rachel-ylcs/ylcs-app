@@ -29,8 +29,6 @@ const styles = StyleSheet.create({
     list: {
         flex: 1,
         width: '100%',
-        borderTopColor: '#bbb',
-        borderTopWidth: StyleSheet.hairlineWidth,
     },
     item: {
         width: '100%',
@@ -40,8 +38,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         paddingHorizontal: 10,
         paddingVertical: 15,
-        borderBottomColor: '#bbb',
-        borderBottomWidth: StyleSheet.hairlineWidth,
     },
     itemKey: {
         fontSize: 16,
@@ -58,6 +54,11 @@ const styles = StyleSheet.create({
     valueText: {
         fontSize: 16,
         color: 'black',
+    },
+    itemSeparator: {
+        width: '100%',
+        height: StyleSheet.hairlineWidth,
+        backgroundColor: '#bbb',
     },
     footer: {
         width: '100%',
@@ -122,6 +123,7 @@ export default function AboutPage({ navigation, route }) {
                 <Text style={styles.version}>v{version} ({versionCode})</Text>
             </View>
             <View style={styles.list}>
+                <View style={styles.itemSeparator} />
                 <TouchableHighlight onPress={() => {}}>
                     <View style={styles.item}>
                         <Text style={styles.itemKey}>检查更新</Text>
@@ -131,12 +133,14 @@ export default function AboutPage({ navigation, route }) {
                         </View>
                     </View>
                 </TouchableHighlight>
+                <View style={styles.itemSeparator} />
                 <TouchableHighlight onPress={() => {}}>
                     <View style={styles.item}>
                         <Text style={styles.itemKey}>更新日志</Text>
                         <RightArrowIcon width={20} height={20} fill="gray" />
                     </View>
                 </TouchableHighlight>
+                <View style={styles.itemSeparator} />
                 <TouchableHighlight onPress={() => {}}>
                     <View style={styles.item}>
                         <Text style={styles.itemKey}>小银子体验改进计划</Text>
@@ -146,18 +150,21 @@ export default function AboutPage({ navigation, route }) {
                         </View>
                     </View>
                 </TouchableHighlight>
+                <View style={styles.itemSeparator} />
                 <TouchableHighlight onPress={() => {}}>
                     <View style={styles.item}>
                         <Text style={styles.itemKey}>提交反馈</Text>
                         <RightArrowIcon width={20} height={20} fill="gray" />
                     </View>
                 </TouchableHighlight>
+                <View style={styles.itemSeparator} />
                 <TouchableHighlight onPress={() => setModalVisible(true)}>
                     <View style={styles.item}>
                         <Text style={styles.itemKey}>茶舍的小伙伴们</Text>
                         <RightArrowIcon width={20} height={20} fill="gray" />
                     </View>
                 </TouchableHighlight>
+                <View style={styles.itemSeparator} />
             </View>
             <View style={styles.footer}>
                 <View style={styles.links}>
