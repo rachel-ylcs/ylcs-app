@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { StyleSheet, View, Text, ScrollView, TouchableHighlight, Alert } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableHighlight, Switch, Alert } from 'react-native';
 import { useStyles } from 'react-native-unistyles';
 import FastImage from 'react-native-fast-image';
 import { launchImageLibrary } from 'react-native-image-picker';
@@ -8,7 +8,6 @@ import { useNeedAuth } from '../hooks/useNeedAuth';
 import { encryptStorage } from '../store';
 import { useUserStore } from '../store/User';
 import { UserAPI } from '../api/ylcs';
-import { version } from '../../app.json';
 import RightArrowIcon from '../assets/images/right_arrow.svg';
 
 const styles = StyleSheet.create({
@@ -60,18 +59,28 @@ const styles = StyleSheet.create({
         aspectRatio: 16 / 9,
         backgroundColor: 'lightgray',
     },
-    logout: {
-        color: 'darkred',
-    },
     primaryColor: {
         width: 50,
         height: 30,
         backgroundColor: 'steelblue',
         borderRadius: 5,
     },
-    textFont: {
-        fontSize: 16,
-        color: 'black',
+    footer: {
+        marginVertical: 20,
+    },
+    footerButton: {
+        width: '100%',
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        borderTopColor: '#bbb',
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: '#bbb',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    logout: {
+        color: 'red',
     },
 });
 
@@ -208,7 +217,7 @@ export default function SettingsPage({ navigation }) {
     return (
         <ScrollView style={theme.components.Container} overScrollMode="never" showsVerticalScrollIndicator={false}>
             <View style={styles.section}>
-                <Text style={styles.title}>账号设置</Text>
+                <Text style={styles.title}>账号</Text>
                 <TouchableHighlight onPress={changeAvatar}>
                     <View style={styles.item}>
                         <Text style={styles.itemKey}>头像</Text>
@@ -239,15 +248,15 @@ export default function SettingsPage({ navigation }) {
                         <Text style={[styles.itemValue, styles.valueText]} numberOfLines={1}>{user?.inviter}</Text>
                     </View>
                 </TouchableHighlight>
-                <TouchableHighlight onPress={logout}>
-                    <View style={styles.item}>
-                        <Text style={[styles.itemKey, styles.logout]}>退出登录</Text>
-                        <RightArrowIcon width={20} height={20} fill="gray" />
-                    </View>
-                </TouchableHighlight>
             </View>
             <View style={styles.section}>
-                <Text style={styles.title}>个性设置</Text>
+                <Text style={styles.title}>界面</Text>
+                <TouchableHighlight onPress={() => {}}>
+                    <View style={styles.item}>
+                        <Text style={styles.itemKey}>深色模式</Text>
+                        <Text style={[styles.itemValue, styles.valueText]}>跟随系统</Text>
+                    </View>
+                </TouchableHighlight>
                 <TouchableHighlight onPress={() => Toast.show('即将支持自定义主题色')}>
                     <View style={styles.item}>
                         <Text style={styles.itemKey}>主题色</Text>
@@ -257,20 +266,45 @@ export default function SettingsPage({ navigation }) {
                 <TouchableHighlight onPress={() => Toast.show('即将支持自定义字体')}>
                     <View style={styles.item}>
                         <Text style={styles.itemKey}>字体</Text>
-                        <Text style={[styles.itemValue, styles.valueText, styles.textFont]}>默认</Text>
+                        <Text style={[styles.itemValue, styles.valueText]}>默认</Text>
+                    </View>
+                </TouchableHighlight>
+                <TouchableHighlight onPress={() => {}}>
+                    <View style={styles.item}>
+                        <Text style={styles.itemKey}>语言</Text>
+                        <Text style={[styles.itemValue, styles.valueText]}>中文（简体）</Text>
                     </View>
                 </TouchableHighlight>
             </View>
             <View style={styles.section}>
-                <Text style={styles.title}>播放器设置</Text>
+                <Text style={styles.title}>播放器</Text>
                 <TouchableHighlight onPress={() => {}}>
                     <View style={styles.item}>
                         <Text style={styles.itemKey}>与其他应用同时播放</Text>
+                        <Switch value={false} />
                     </View>
                 </TouchableHighlight>
                 <TouchableHighlight onPress={() => {}}>
                     <View style={styles.item}>
-                        <Text style={styles.itemKey}>歌词设置</Text>
+                        <Text style={styles.itemKey}>状态栏歌词</Text>
+                        <RightArrowIcon width={20} height={20} fill="gray" />
+                    </View>
+                </TouchableHighlight>
+                <TouchableHighlight onPress={() => {}}>
+                    <View style={styles.item}>
+                        <Text style={styles.itemKey}>桌面歌词</Text>
+                        <Switch value={false} />
+                    </View>
+                </TouchableHighlight>
+                <TouchableHighlight onPress={() => {}}>
+                    <View style={styles.item}>
+                        <Text style={styles.itemKey}>锁屏显示</Text>
+                        <RightArrowIcon width={20} height={20} fill="gray" />
+                    </View>
+                </TouchableHighlight>
+                <TouchableHighlight onPress={() => {}}>
+                    <View style={styles.item}>
+                        <Text style={styles.itemKey}>桌面小部件/卡片/原子服务</Text>
                         <RightArrowIcon width={20} height={20} fill="gray" />
                     </View>
                 </TouchableHighlight>
@@ -281,7 +315,17 @@ export default function SettingsPage({ navigation }) {
                 </TouchableHighlight>
             </View>
             <View style={styles.section}>
-                <Text style={styles.title}>通用设置</Text>
+                <Text style={styles.title}>其他</Text>
+                <TouchableHighlight onPress={() => {}}>
+                    <View style={styles.item}>
+                        <Text style={styles.itemKey}>自动下载原图</Text>
+                        <View style={styles.itemValue}>
+                            {/* 不自动下载/WiFi下自动下载/任何网络下都自动下载 */}
+                            <Text style={styles.valueText}>不自动下载</Text>
+                            <RightArrowIcon width={20} height={20} fill="gray" />
+                        </View>
+                    </View>
+                </TouchableHighlight>
                 <TouchableHighlight onPress={() => {}}>
                     <View style={styles.item}>
                         <Text style={styles.itemKey}>清理缓存</Text>
@@ -293,31 +337,19 @@ export default function SettingsPage({ navigation }) {
                 </TouchableHighlight>
                 <TouchableHighlight onPress={() => {}}>
                     <View style={styles.item}>
-                        <Text style={styles.itemKey}>用户体验改进计划</Text>
-                        <View style={styles.itemValue}>
-                            <Text style={styles.valueText}>未加入</Text>
-                            <RightArrowIcon width={20} height={20} fill="gray" />
-                        </View>
-                    </View>
-                </TouchableHighlight>
-                <TouchableHighlight onPress={() => {}}>
-                    <View style={styles.item}>
-                        <Text style={styles.itemKey}>提交反馈</Text>
+                        <Text style={styles.itemKey}>个人信息收集清单</Text>
                         <RightArrowIcon width={20} height={20} fill="gray" />
                     </View>
                 </TouchableHighlight>
                 <TouchableHighlight onPress={() => {}}>
                     <View style={styles.item}>
-                        <Text style={styles.itemKey}>检查更新</Text>
-                        <View style={styles.itemValue}>
-                            <Text style={styles.valueText}>{`v${version}`}</Text>
-                            <RightArrowIcon width={20} height={20} fill="gray" />
-                        </View>
+                        <Text style={styles.itemKey}>第三方共享信息清单</Text>
+                        <RightArrowIcon width={20} height={20} fill="gray" />
                     </View>
                 </TouchableHighlight>
                 <TouchableHighlight onPress={() => {}}>
                     <View style={styles.item}>
-                        <Text style={styles.itemKey}>隐私政策</Text>
+                        <Text style={styles.itemKey}>第三方SDK列表</Text>
                         <RightArrowIcon width={20} height={20} fill="gray" />
                     </View>
                 </TouchableHighlight>
@@ -325,6 +357,13 @@ export default function SettingsPage({ navigation }) {
                     <View style={styles.item}>
                         <Text style={styles.itemKey}>关于茶舍</Text>
                         <RightArrowIcon width={20} height={20} fill="gray" />
+                    </View>
+                </TouchableHighlight>
+            </View>
+            <View style={styles.footer}>
+                <TouchableHighlight onPress={logout}>
+                    <View style={styles.footerButton}>
+                        <Text style={[styles.valueText, styles.logout]}>退出登录</Text>
                     </View>
                 </TouchableHighlight>
             </View>
