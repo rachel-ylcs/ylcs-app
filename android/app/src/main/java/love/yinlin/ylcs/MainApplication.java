@@ -15,6 +15,8 @@ import com.facebook.soloader.SoLoader;
 
 import java.util.List;
 
+import love.yinlin.ylcs.rn.RachelPackage;
+
 public class MainApplication extends Application implements ReactApplication {
 
     public static final int DESIGN_WIDTH_DP = 400;
@@ -28,10 +30,9 @@ public class MainApplication extends Application implements ReactApplication {
 
                 @Override
                 protected List<ReactPackage> getPackages() {
-                    @SuppressWarnings("UnnecessaryLocalVariable")
                     List<ReactPackage> packages = new PackageList(this).getPackages();
                     // Packages that cannot be autolinked yet can be added manually here, for example:
-                    // packages.add(new MyReactNativePackage());
+                    packages.add(new RachelPackage());
                     return packages;
                 }
 

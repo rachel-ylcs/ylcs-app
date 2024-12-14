@@ -1,8 +1,16 @@
 diff --git a/node_modules/react-native-qr-decode-image-camera/android/build.gradle b/node_modules/react-native-qr-decode-image-camera/android/build.gradle
-index ef823e9..597d46e 100644
+index ef823e9..193380e 100644
 --- a/node_modules/react-native-qr-decode-image-camera/android/build.gradle
 +++ b/node_modules/react-native-qr-decode-image-camera/android/build.gradle
-@@ -56,6 +56,6 @@ repositories {
+@@ -25,6 +25,7 @@ buildscript {
+ apply plugin: 'com.android.library'
+ 
+ android {
++    namespace "com.lewin.qrcode"
+     compileSdkVersion 31
+     buildToolsVersion "31.0.0"
+ 
+@@ -56,6 +57,6 @@ repositories {
  
  dependencies {
      implementation 'com.facebook.react:react-native:+'

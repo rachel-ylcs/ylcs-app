@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, Image, StatusBar, StyleProp, TextStyle, View } from 'react-native';
+import { StyleSheet, Text, Image, StyleProp, TextStyle, View } from 'react-native';
 import { useStyles } from 'react-native-unistyles';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';

@@ -15,7 +15,7 @@ buildscript {
         // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
         ndkVersion = "23.1.7779620"
 
-        kotlinVersion = '1.8.21'
+        kotlinVersion = '1.9.23'
         kotlin_version = kotlinVersion
 
         appVersion = appConfig["version"]
@@ -26,9 +26,16 @@ buildscript {
         google()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
+        // HACK 有个bug导致无法用高版本库覆盖低版本的库, 在AGP 8.5.0才修复
+        // 详见 https://issuetracker.google.com/issues/266599585?hl=zh-cn
+        classpath("com.android.tools.build:gradle:8.5.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("com.tencent.vasdolly:plugin:3.0.6")
     }
+}
+
+plugins {
+    id "org.jetbrains.compose" version "1.6.2" apply false
+    id "org.jetbrains.kotlin.multiplatform" version "1.9.23" apply false
 }

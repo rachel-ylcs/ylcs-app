@@ -1,0 +1,55 @@
+diff --git a/node_modules/@react-native/gradle-plugin/build.gradle.kts b/node_modules/@react-native/gradle-plugin/build.gradle.kts
+index aba3649..3c7207b 100644
+--- a/node_modules/@react-native/gradle-plugin/build.gradle.kts
++++ b/node_modules/@react-native/gradle-plugin/build.gradle.kts
+@@ -11,7 +11,7 @@ import org.gradle.configurationcache.extensions.serviceOf
+ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+ 
+ plugins {
+-  kotlin("jvm") version "1.7.22"
++  kotlin("jvm") version "1.9.22"
+   id("java-gradle-plugin")
+ }
+ 
+@@ -33,7 +33,7 @@ group = "com.facebook.react"
+ 
+ dependencies {
+   implementation(gradleApi())
+-  implementation("com.android.tools.build:gradle:7.4.2")
++  implementation("com.android.tools.build:gradle:8.5.2")
+   implementation("com.google.code.gson:gson:2.8.9")
+   implementation("com.google.guava:guava:31.0.1-jre")
+   implementation("com.squareup:javapoet:1.13.0")
+@@ -50,13 +50,13 @@ dependencies {
+ }
+ 
+ java {
+-  sourceCompatibility = JavaVersion.VERSION_11
+-  targetCompatibility = JavaVersion.VERSION_11
++  sourceCompatibility = JavaVersion.VERSION_17
++  targetCompatibility = JavaVersion.VERSION_17
+ }
+ 
+ tasks.withType<KotlinCompile> {
+   kotlinOptions {
+-    jvmTarget = JavaVersion.VERSION_11.majorVersion
++    jvmTarget = JavaVersion.VERSION_17.majorVersion
+     apiVersion = "1.5"
+     languageVersion = "1.5"
+   }
+diff --git a/node_modules/@react-native/gradle-plugin/src/main/kotlin/com/facebook/react/utils/JdkConfiguratorUtils.kt b/node_modules/@react-native/gradle-plugin/src/main/kotlin/com/facebook/react/utils/JdkConfiguratorUtils.kt
+index a18f2b6..93e4a35 100644
+--- a/node_modules/@react-native/gradle-plugin/src/main/kotlin/com/facebook/react/utils/JdkConfiguratorUtils.kt
++++ b/node_modules/@react-native/gradle-plugin/src/main/kotlin/com/facebook/react/utils/JdkConfiguratorUtils.kt
+@@ -29,8 +29,9 @@ internal object JdkConfiguratorUtils {
+           Action<AppliedPlugin> {
+             project.extensions.getByType(AndroidComponentsExtension::class.java).finalizeDsl {
+                 ext ->
+-              ext.compileOptions.sourceCompatibility = JavaVersion.VERSION_11
+-              ext.compileOptions.targetCompatibility = JavaVersion.VERSION_11
++              // We set the java version to 17 as compose requires it.
++              ext.compileOptions.sourceCompatibility = JavaVersion.VERSION_17
++              ext.compileOptions.targetCompatibility = JavaVersion.VERSION_17
+             }
+           }
+       project.pluginManager.withPlugin("com.android.application", action)

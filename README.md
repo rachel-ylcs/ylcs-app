@@ -4,7 +4,9 @@
 
 银临茶舍 APP，集资讯、听歌、美图、论坛、社交于一体的小银子聚集地。
 
-该仓库为使用 React Native 开发的客户端应用，支持 Android、iOS 和纯血鸿蒙平台。
+该仓库为使用 React Native/Kotlin Multiplatform 开发的客户端应用，支持 Android、iOS 和纯血鸿蒙平台。
+
+其中 rn 因开发简单、支持热更新、可复用 Web 端资源而主要用于资讯和社交等业务，kmp 因无需桥接、性能高、开发体验接近 Android 而主要用于音乐播放器和提供平台原生功能，每个平台都通过壳应用将 native、rn 和 kmp 桥接在一起，形成一套完善的、体验接近原生 App 的跨端解决方案。
 
 ## 环境配置
 
@@ -21,9 +23,12 @@
 # 我们暂时使用 npm 包管理器
 npm install
 # ios 平台安装依赖
+# 旧架构
 cd ios
 pod install
-# HarmonyOS 平台生成桥接代码
+# 新架构（必须从npm脚本运行，否则需要自行配置环境变量）
+npm run pod-install
+# HarmonyOS 平台生成桥接代码（鸿蒙rn暂未支持AutoLink）
 npm run ohos:codegen
 ```
 

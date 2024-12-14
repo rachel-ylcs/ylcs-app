@@ -1,3 +1,15 @@
+diff --git a/node_modules/react-native-prompt-android/android/build.gradle b/node_modules/react-native-prompt-android/android/build.gradle
+index 8bd60b3..a5fb672 100644
+--- a/node_modules/react-native-prompt-android/android/build.gradle
++++ b/node_modules/react-native-prompt-android/android/build.gradle
+@@ -6,6 +6,7 @@ def DEFAULT_MIN_SDK_VERSION = 16
+ def DEFAULT_TARGET_SDK_VERSION = 27
+ 
+ android {
++    namespace "im.shimo.react.prompt"
+     compileSdkVersion rootProject.hasProperty('compileSdkVersion') ? rootProject.compileSdkVersion : DEFAULT_COMPILE_SDK_VERSION
+     buildToolsVersion rootProject.hasProperty('buildToolsVersion') ? rootProject.buildToolsVersion : DEFAULT_BUILD_TOOLS_VERSION
+ 
 diff --git a/node_modules/react-native-prompt-android/index.harmony.js b/node_modules/react-native-prompt-android/index.harmony.js
 new file mode 100644
 index 0000000..c35c997

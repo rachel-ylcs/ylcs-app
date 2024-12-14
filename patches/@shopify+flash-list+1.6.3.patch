@@ -1,0 +1,12 @@
+diff --git a/node_modules/@shopify/flash-list/android/build.gradle b/node_modules/@shopify/flash-list/android/build.gradle
+index bed08cd..a8ae2db 100644
+--- a/node_modules/@shopify/flash-list/android/build.gradle
++++ b/node_modules/@shopify/flash-list/android/build.gradle
+@@ -27,6 +27,7 @@ buildscript {
+ }
+ 
+ android {
++    namespace "com.shopify.reactnative.flash_list"
+     compileSdkVersion _compileSdkVersion
+     buildToolsVersion _buildToolsVersion
+ 

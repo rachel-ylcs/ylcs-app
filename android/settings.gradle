@@ -1,4 +1,37 @@
+pluginManagement {
+    repositories {
+        google {
+            mavenContent {
+                includeGroupByRegex("androidx.*")
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+            }
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        google {
+            mavenContent {
+                includeGroupByRegex("androidx.*")
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+            }
+        }
+        mavenCentral()
+        maven {
+            name = "jitpack"
+            url = "https://jitpack.io"
+        }
+    }
+}
+
 rootProject.name = 'ylcs'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
+include ':kmp'
+project(':kmp').projectDir = file('../kmp')
 includeBuild('../node_modules/@react-native/gradle-plugin')

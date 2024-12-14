@@ -1,0 +1,28 @@
+diff --git a/node_modules/react-native-screens/common/cpp/react/renderer/components/rnscreens/RNSScreenComponentDescriptor.h b/node_modules/react-native-screens/common/cpp/react/renderer/components/rnscreens/RNSScreenComponentDescriptor.h
+index 67194d3..2476129 100644
+--- a/node_modules/react-native-screens/common/cpp/react/renderer/components/rnscreens/RNSScreenComponentDescriptor.h
++++ b/node_modules/react-native-screens/common/cpp/react/renderer/components/rnscreens/RNSScreenComponentDescriptor.h
+@@ -12,11 +12,11 @@ class RNSScreenComponentDescriptor final
+  public:
+   using ConcreteComponentDescriptor::ConcreteComponentDescriptor;
+ 
+-  void adopt(ShadowNode& shadowNode) const override {
++  void adopt(ShadowNode::Unshared const &shadowNode) const override {
+     react_native_assert(
+-        dynamic_cast<RNSScreenShadowNode*>(&shadowNode));
++        dynamic_cast<RNSScreenShadowNode*>(shadowNode.get()));
+     auto& screenShadowNode =
+-        static_cast<RNSScreenShadowNode&>(shadowNode);
++        static_cast<RNSScreenShadowNode&>(*shadowNode);
+ 
+     react_native_assert(
+         dynamic_cast<YogaLayoutableShadowNode*>(&screenShadowNode));
+@@ -25,7 +25,7 @@ class RNSScreenComponentDescriptor final
+ 
+     auto state =
+         std::static_pointer_cast<const RNSScreenShadowNode::ConcreteState>(
+-            shadowNode.getState());
++            shadowNode->getState());
+     auto stateData = state->getData();
+ 
+     if (stateData.frameSize.width != 0 && stateData.frameSize.height != 0) {

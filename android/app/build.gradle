@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: "kotlin-android" // 即使没有kotlin代码也要加上kt插件, 否则不处理compose依赖
 apply plugin: "com.facebook.react"
 apply plugin: "com.tencent.vasdolly"
 
@@ -108,6 +109,9 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    buildFeatures {
+        buildConfig true
+    }
 }
 
 channel {
@@ -119,7 +123,7 @@ channel {
 }
 
 dependencies {
-    implementation("androidx.activity:activity:1.8.2") // EdgeToEdge
+//    implementation("androidx.activity:activity-ktx") // EdgeToEdge
     api("com.tencent.vasdolly:helper:3.0.6")
 
     // The version of react-native is set by the React Native Gradle Plugin
@@ -130,6 +134,8 @@ dependencies {
         implementation jscFlavor
     }
     implementation("com.facebook.fresco:webpsupport:2.5.0")
+
+    implementation project(':kmp')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {

@@ -1,17 +1,9 @@
 import React, { useEffect, useCallback } from 'react';
-import { View, Text, StatusBar } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StatusBar } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import MusicPlayer from '../components/MusicPlayer';
 
-const stylesheet = createStyleSheet((theme, runtime) => ({
-    container: {
-        backgroundColor: 'black',
-    },
-}));
-
-export default function NewsPage({ navigation }) {
-    const { styles, theme } = useStyles(stylesheet);
-
+export default function MusicPage({ navigation }) {
     useEffect(() => {
         navigation.setOptions({
             headerShown: false,
@@ -31,9 +23,5 @@ export default function NewsPage({ navigation }) {
         }, [])
     );
 
-    return (
-        <View style={[theme.components.CenterContainer, styles.container]}>
-            <Text style={{ color: 'white' }}>听歌功能正在开发中, 敬请期待</Text>
-        </View>
-    );
+    return <MusicPlayer />;
 }

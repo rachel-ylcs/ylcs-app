@@ -1,0 +1,44 @@
+diff --git a/node_modules/react-native-svg/android/src/main/jni/CMakeLists.txt b/node_modules/react-native-svg/android/src/main/jni/CMakeLists.txt
+index 38799a1..72a437e 100644
+--- a/node_modules/react-native-svg/android/src/main/jni/CMakeLists.txt
++++ b/node_modules/react-native-svg/android/src/main/jni/CMakeLists.txt
+@@ -53,7 +53,6 @@ target_link_libraries(
+   turbomodulejsijni
+   yoga
+   react_render_imagemanager
+-  react_utils
+ )
+ 
+ target_compile_options(
+diff --git a/node_modules/react-native-svg/common/cpp/react/renderer/components/rnsvg/RNSVGImageComponentDescriptor.h b/node_modules/react-native-svg/common/cpp/react/renderer/components/rnsvg/RNSVGImageComponentDescriptor.h
+index 4af5b9a..e00d352 100644
+--- a/node_modules/react-native-svg/common/cpp/react/renderer/components/rnsvg/RNSVGImageComponentDescriptor.h
++++ b/node_modules/react-native-svg/common/cpp/react/renderer/components/rnsvg/RNSVGImageComponentDescriptor.h
+@@ -26,10 +26,10 @@ class RNSVGImageComponentDescriptor final
+       : ConcreteComponentDescriptor(parameters),
+         imageManager_(std::make_shared<ImageManager>(contextContainer_)){};
+ 
+-  void adopt(ShadowNode &shadowNode) const override {
++  void adopt(ShadowNode::Unshared const &shadowNode) const override {
+     ConcreteComponentDescriptor::adopt(shadowNode);
+ 
+-    auto &imageShadowNode = static_cast<RNSVGImageShadowNode &>(shadowNode);
++    auto &imageShadowNode = static_cast<RNSVGImageShadowNode &>(*shadowNode);
+ 
+     // `RNSVGImageShadowNode` uses `ImageManager` to initiate image loading and
+     // communicate the loading state and results to mounting layer.
+diff --git a/node_modules/react-native-svg/common/cpp/react/renderer/components/rnsvg/RNSVGImageShadowNode.h b/node_modules/react-native-svg/common/cpp/react/renderer/components/rnsvg/RNSVGImageShadowNode.h
+index b373427..0f0a981 100644
+--- a/node_modules/react-native-svg/common/cpp/react/renderer/components/rnsvg/RNSVGImageShadowNode.h
++++ b/node_modules/react-native-svg/common/cpp/react/renderer/components/rnsvg/RNSVGImageShadowNode.h
+@@ -44,8 +44,8 @@ class JSI_EXPORT RNSVGImageShadowNode final : public ConcreteViewShadowNode<
+   void setImageManager(const SharedImageManager &imageManager);
+ 
+   static RNSVGImageState initialStateData(
+-      Props::Shared const &props,
+-      ShadowNodeFamily::Shared const &family,
++      ShadowNodeFragment const &fragment,
++      ShadowNodeFamilyFragment const &family,
+       ComponentDescriptor const &componentDescriptor) {
+     auto imageSource = ImageSource{ImageSource::Type::Invalid};
+     return {imageSource, {imageSource, nullptr, {}}};

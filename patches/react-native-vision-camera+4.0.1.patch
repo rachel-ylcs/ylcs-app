@@ -1,0 +1,23 @@
+diff --git a/node_modules/react-native-vision-camera/android/build.gradle b/node_modules/react-native-vision-camera/android/build.gradle
+index 3ef638b..995444b 100644
+--- a/node_modules/react-native-vision-camera/android/build.gradle
++++ b/node_modules/react-native-vision-camera/android/build.gradle
+@@ -111,6 +111,7 @@ android {
+   buildFeatures {
+     prefab true
+     prefabPublishing true
++    buildConfig true
+   }
+ 
+   prefab {
+@@ -224,6 +225,10 @@ task prepareHeaders(type: Copy) {
+ 
+ preBuild.dependsOn(prepareHeaders)
+ 
++if (isNewArchitectureEnabled()) {
++  generateCodegenSchemaFromJavaScript.dependsOn(prepareHeaders)
++}
++
+ tasks.configureEach { task ->
+   // C++ build
+   if (task.name.contains("configureCMakeDebug")) {

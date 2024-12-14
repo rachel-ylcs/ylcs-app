@@ -1,0 +1,14 @@
+diff --git a/node_modules/@d11/react-native-fast-image/android/build.gradle b/node_modules/@d11/react-native-fast-image/android/build.gradle
+index 49b1d03..2dd4a1c 100644
+--- a/node_modules/@d11/react-native-fast-image/android/build.gradle
++++ b/node_modules/@d11/react-native-fast-image/android/build.gradle
+@@ -62,6 +62,9 @@ android {
+             }
+         }
+     }
++    buildFeatures {
++        buildConfig true
++    }
+     lintOptions {
+         abortOnError false
+     }
