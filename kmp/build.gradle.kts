@@ -41,6 +41,7 @@ kotlin {
             api(compose.ui)
             api(compose.material)
             api(compose.components.resources)
+            implementation("tech.annexflow.compose:constraintlayout-compose-multiplatform:0.4.0")
             implementation(compose.components.uiToolingPreview) // Preview in Fleet
         }
     }

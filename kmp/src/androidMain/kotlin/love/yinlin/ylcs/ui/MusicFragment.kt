@@ -1,4 +1,4 @@
-package love.yinlin.ylcs
+package love.yinlin.ylcs.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +20,7 @@ class MusicFragment : Fragment() {
         root = ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                App()
+                MusicPlayer()
             }
         }
         return root

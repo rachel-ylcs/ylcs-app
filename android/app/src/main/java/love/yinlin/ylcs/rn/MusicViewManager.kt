@@ -9,7 +9,7 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewGroupManager
-import love.yinlin.ylcs.MusicFragment
+import love.yinlin.ylcs.ui.MusicFragment
 
 class MusicViewManager(
     private val reactContext: ReactApplicationContext
