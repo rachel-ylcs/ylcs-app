@@ -5,5 +5,10 @@ module.exports = {
         ios: null,
       },
     },
+    '@react-native-oh-tpl/react-native-track-player': {
+      platforms: {
+        ios: null,
+      },
+    },
   },
 };
