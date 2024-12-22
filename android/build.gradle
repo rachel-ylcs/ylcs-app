@@ -30,6 +30,7 @@ buildscript {
         // 详见 https://issuetracker.google.com/issues/266599585?hl=zh-cn
         classpath("com.android.tools.build:gradle:8.5.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath("org.jetbrains.kotlin:kotlin-serialization:$kotlin_version")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("com.tencent.vasdolly:plugin:3.0.6")
     }

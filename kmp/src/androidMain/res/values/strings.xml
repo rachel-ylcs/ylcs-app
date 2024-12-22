@@ -1,0 +1,3 @@
+<resources>
+    <string name="app_provider">com.yinlin.rachel.file.provider</string>
+</resources>

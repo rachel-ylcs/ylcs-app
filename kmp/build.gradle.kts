@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
+    kotlin("plugin.serialization")
     id("org.jetbrains.compose")
 }
 
@@ -29,6 +30,10 @@ kotlin {
             dependencies {
                 api("androidx.activity:activity-compose:1.9.3")
                 api("androidx.fragment:fragment-ktx:1.8.5")
+                api("androidx.media3:media3-exoplayer:1.5.1")
+                api("androidx.media3:media3-session:1.5.1")
+                api("androidx.media3:media3-ui:1.5.1")
+                api("com.tencent:mmkv:2.0.1")
                 implementation(compose.preview) // Preview in Android Studio
             }
         }
@@ -41,6 +46,8 @@ kotlin {
             api(compose.ui)
             api(compose.material)
             api(compose.components.resources)
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+            implementation("org.jetbrains.kotlinx:kotlinx-io-core:0.6.0")
             implementation("tech.annexflow.compose:constraintlayout-compose-multiplatform:0.4.0")
             implementation(compose.components.uiToolingPreview) // Preview in Fleet
         }

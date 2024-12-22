@@ -1,4 +1,4 @@
-package love.yinlin.ylcs
+package love.yinlin.ylcs.utils
 
 interface Platform {
     val name: String

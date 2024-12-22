@@ -16,6 +16,7 @@ import com.facebook.soloader.SoLoader;
 import java.util.List;
 
 import love.yinlin.ylcs.rn.RachelPackage;
+import love.yinlin.ylcs.utils.KVUtil_androidKt;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -66,6 +67,8 @@ public class MainApplication extends Application implements ReactApplication {
             DefaultNewArchitectureEntryPoint.load();
         }
         ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+
+        KVUtil_androidKt.initMMKV(this);
     }
 
     @Override

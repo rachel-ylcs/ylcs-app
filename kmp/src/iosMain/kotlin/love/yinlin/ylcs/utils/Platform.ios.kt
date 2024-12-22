@@ -1,4 +1,4 @@
-package love.yinlin.ylcs
+package love.yinlin.ylcs.utils
 
 import platform.UIKit.UIDevice
 
